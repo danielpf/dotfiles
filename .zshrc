@@ -47,7 +47,7 @@ export PATH=~/myscripts:$PATH
 export PATH=~/bin:$PATH
 
 # mkdir .cfg, then `git init --bare` inside of it
-alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME --file $HOME/.gitconfig"
 
 alias vim="nvim"
 alias v="nvim"
