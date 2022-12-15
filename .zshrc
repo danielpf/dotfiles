@@ -45,12 +45,16 @@ alias l='ls -CF'
 export PATH=~/.local/bin:$PATH
 export PATH=~/myscripts:$PATH
 export PATH=~/bin:$PATH
+# Ruby:
+export PATH="$PATH:$HOME/.rvm/bin"
 
 # mkdir .cfg, then `git init --bare` inside of it
-alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME --file $HOME/.gitconfig"
+# 
+alias cfg="GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 alias vim="nvim"
 alias v="nvim"
 alias x="nvim ."
 alias zshrc="nvim ~/.zshrc"
 alias dotnvim="cd ~/.config/nvim; nvim ."
+
