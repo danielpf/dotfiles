@@ -77,10 +77,11 @@ export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
 alias cfg="GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 alias vim="nvim"
-alias v="nvim"
-alias x="nvim ."
-alias zshrc="nvim ~/.zshrc"
-alias dotnvim="cd ~/.config/nvim; nvim ."
+alias vhome="vim ~"
+alias vhere="nvim ."
+alias v"nvim ."
+alias vzshrc="nvim ~/.zshrc"
+
 alias ip="ip -c"
 alias df="df -h"
 alias free="free -m"

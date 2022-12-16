@@ -1,5 +1,3 @@
-require("danielf.remaps");
-require("danielf.set");
-
-require("danielf.packer");
-
+require('danielf.remaps');
+require('danielf.packer');
+require('danielf.set');
