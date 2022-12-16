@@ -2,8 +2,7 @@
 
 autoload -Uz promptinit
 promptinit
-prompt adam1
-
+prompt adam2
 
 # ------ HISTORY
 setopt histignorealldups sharehistory
@@ -75,8 +74,6 @@ export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
 
-# mkdir .cfg, then `git init --bare` inside of it
-# 
 alias cfg="GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 alias vim="nvim"
@@ -84,6 +81,9 @@ alias v="nvim"
 alias x="nvim ."
 alias zshrc="nvim ~/.zshrc"
 alias dotnvim="cd ~/.config/nvim; nvim ."
+alias ip="ip -c"
+alias df="df -h"
+alias free="free -m"
 
 # man pages colour configuration
 # https://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
@@ -95,4 +95,7 @@ export LESS_TERMCAP_se=$(printf '\e[0m') # leave standout mode
 export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode – yellow
 export LESS_TERMCAP_ue=$(printf '\e[0m') # leave underline mode
 export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
+
+# -----
+
 
