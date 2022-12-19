@@ -195,6 +195,11 @@ _G.packer_plugins = {
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
+  ["vim-man"] = {
+    loaded = true,
+    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/vim-man",
+    url = "https://github.com/paretje/vim-man"
+  },
   ["vim-rooter"] = {
     loaded = true,
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/vim-rooter",

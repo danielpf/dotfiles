@@ -60,7 +60,9 @@ require('packer').startup(function(use)
     }
   }
 
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use('nvim-lualine/lualine.nvim') -- Fancier statusline
+
+  use('paretje/vim-man');
 
   use('/home/jdoe/data/aoc/');
 

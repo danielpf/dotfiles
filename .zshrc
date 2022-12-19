@@ -1,22 +1,21 @@
 # Set up the prompt
-
 autoload -Uz promptinit
 promptinit
 prompt adam2
 
 # ------ HISTORY
-setopt histignorealldups sharehistory
+setopt histignorealldups # remove consecutive duplicates
+setopt sharehistory
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 # ------ KEYS
-
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# Use modern completion system
+# ------ AUTO COMPLETION
 autoload -Uz compinit
 compinit
 
@@ -38,9 +37,11 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# ------ DIRS
+setopt automenu
+setopt nolisttypes
 
-setopt AUTO_CD
+# ------ DIRS
+setopt AUTO_CD # cd for lazy people
 
 alias ls='ls --color'
 alias ll='ls --color -alF --human-readable'
