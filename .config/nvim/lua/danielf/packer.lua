@@ -18,7 +18,13 @@ require('packer').startup(function(use)
 
   use('theprimeagen/harpoon');
   use('nvim-lua/plenary.nvim');
-  use('nvim-telescope/telescope.nvim');
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-telescope/telescope-live-grep-args.nvim'},
+    },
+    config = function() require('telescope').load_extension('live_grep_args') end
+  };
 
   use({
 	  'rose-pine/neovim',
@@ -64,7 +70,7 @@ require('packer').startup(function(use)
 
   use('paretje/vim-man');
 
-  use('/home/jdoe/data/aoc/');
+  use('/home/jdoe/data/stackmap/');
 
   if is_bootstrap then
     require('packer').sync()
