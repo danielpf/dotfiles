@@ -18,7 +18,6 @@ vim.opt.splitbelow = true;
 
 vim.opt.swapfile = false;
 vim.opt.backup = false;
-vim.opt.undodir = os.getenv("HOME") .. "/.undodir";
 
 vim.opt.updatetime = 50;
 
@@ -26,3 +25,4 @@ vim.opt.termguicolors = true;
 
 vim.opt.list = true;
 
+vim.opt.laststatus = 3

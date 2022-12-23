@@ -63,7 +63,7 @@ function chpwd() {
 
 alias rm="rm -i"
 
-# ------ 
+# ------
 
 export PATH=~/.local/bin:$PATH
 export PATH=~/myscripts:$PATH
@@ -77,11 +77,9 @@ export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
 
 alias cfg="GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
-alias vim="nvim"
-alias vhome="vim ~"
-alias vhere="nvim ."
-alias v"nvim ."
-alias vzshrc="nvim ~/.zshrc"
+my_nvim_dir="$HOME/data/nvim-linux64/bin"
+alias vim="$my_nvim_dir/nvim"
+alias nvim="$my_nvim_dir/nvim"
 
 alias ip="ip -c"
 alias df="df -h"

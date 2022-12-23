@@ -1,19 +1,19 @@
 filetype plugin on
 
-"⌐˙⁄░⌉
-set list listchars=tab:-->,multispace:Ⅰ\ ,extends:↓,nbsp:+
+"⌐˙⁄░⌉Ⅰ
+set list listchars=tab:-->,multispace:░\ ,extends:↓,nbsp:+
 ",eol:∵
 
 " Netrw settings
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 10
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Vexplore
-augroup END
+"let g:netrw_banner = 0
+"let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
+"let g:netrw_winsize = 10
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
 
 function! TrimWhiteSpace()
   let l:save = winsaveview()

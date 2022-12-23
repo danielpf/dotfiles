@@ -1,5 +1,3 @@
 ```
-git clone --bare https://github.com/danielpf/dotfiles .cfg
-git --git-dir=.cfg/ --work-tree=$HOME checkout
-git clone --bare https://github.com/daniel-fazeres/dotfiles.git .cfg
+curl https://raw.githubusercontent.com/danielpf/dotfiles/master/.cfginit/init.sh | sh
 ```

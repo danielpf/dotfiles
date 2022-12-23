@@ -16,3 +16,4 @@ keymap.xnoremap("<leader>p", "\"_dP");
 keymap.nnoremap("<leader>d", "\"_d");
 keymap.vnoremap("<leader>d", "\"_d");
 
+keymap.nnoremap("<leader><leader>", ":");

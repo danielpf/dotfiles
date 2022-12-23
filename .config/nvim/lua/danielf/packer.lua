@@ -16,8 +16,9 @@ require('packer').startup(function(use)
   -- Packer can manage itself
   use('wbthomason/packer.nvim');
 
+  use('nvim-lua/plenary.nvim'); -- useful library for plugins
+
   use('theprimeagen/harpoon');
-  use('nvim-lua/plenary.nvim');
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
@@ -41,6 +42,7 @@ require('packer').startup(function(use)
   use('mbbill/undotree');
 
   use('tpope/vim-fugitive');
+  use('tpope/vim-commentary');
   use('lewis6991/gitsigns.nvim');
   use('airblade/vim-rooter');
 
@@ -68,7 +70,7 @@ require('packer').startup(function(use)
 
   use('nvim-lualine/lualine.nvim') -- Fancier statusline
 
-  use('paretje/vim-man');
+  use('paretje/vim-man'); -- man pages with vim
 
   use('/home/jdoe/data/stackmap/');
 
