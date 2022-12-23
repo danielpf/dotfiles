@@ -80,6 +80,8 @@ alias cfg="GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --w
 my_nvim_dir="$HOME/data/nvim-linux64/bin"
 alias vim="$my_nvim_dir/nvim"
 alias nvim="$my_nvim_dir/nvim"
+alias vhome="$my_nvim_dir/nvim ~"
+alias v="$my_nvim_dir/nvim ."
 
 alias ip="ip -c"
 alias df="df -h"

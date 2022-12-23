@@ -1,19 +1,21 @@
-local keymap = require("danielf.keymap");
-
+local km = require("danielf.keymap");
 
 vim.g.mapleader = " ";
-keymap.nnoremap("<leader>pv", "<cmd>Ex<CR>");
+km.nnoremap(km.f_leader("pv"), "<cmd>Ex<CR>");
 
-keymap.vnoremap("J", ":m '>+1<CR>gv=gv");
-keymap.vnoremap("K", ":m '>-2<CR>gv=gv");
+km.vnoremap("J", ":m '>+1<CR>gv=gv");
+km.vnoremap("K", ":m '>-2<CR>gv=gv");
 
-keymap.nnoremap("J", "mzJ`z");
+km.nnoremap("J", "mzJ`z");
 
-keymap.nnoremap("n", "nzzzv");
-keymap.nnoremap("N", "Nzzzv");
+km.nnoremap("n", "nzzzv");
+km.nnoremap("N", "Nzzzv");
 
-keymap.xnoremap("<leader>p", "\"_dP");
-keymap.nnoremap("<leader>d", "\"_d");
-keymap.vnoremap("<leader>d", "\"_d");
+km.xnoremap(km.f_leader("p"), "\"_dP");
+km.nnoremap(km.f_leader("d"), "\"_d");
+km.vnoremap(km.f_leader("d"), "\"_d");
 
-keymap.nnoremap("<leader><leader>", ":");
+km.nnoremap("<leader><leader>", ":");
+
+km.tnoremap(km.k_esc, km.k_c_leftbar .. km.k_c_n);
+
