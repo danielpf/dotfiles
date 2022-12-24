@@ -3,9 +3,7 @@ local k = km.k
 
 vim.g.mapleader = " ";
 
-km.inoremap(k.c_c, k.esc); -- to get out of dialogs
-km.nnoremap(k.lead.."pv", "<cmd>Ex<CR>"); -- netrw
-
+km.inoremap(k.esc, k.c_c); -- to get out of dialogs
 km.nnoremap(k.lead.."pv", "<cmd>Ex<CR>"); -- netrw
 
 -- move selection in visual mode

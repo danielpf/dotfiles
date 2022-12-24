@@ -16,7 +16,7 @@ nnoremap(k.lead..'tv', function() builtin.find_files({hidden=true, cwd='~/.confi
 nnoremap(k.lead..'tg', function() require('telescope').extensions.live_grep_args.live_grep_args(); end);
 
 nnoremap(k.lead..'tf', function() builtin.find_files({hidden=true}) end);
-nnoremap('<C-p>', function() builtin.find_files({hidden=true}) end);
+nnoremap('<C-p>', function() builtin.find_files({hidden=true, no_ignore=false}) end);
 
 nnoremap(k.lead..'gf', builtin.git_files);
 

@@ -109,4 +109,5 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 
 # -----
 
+. $HOME/.zoxide.sh
 
