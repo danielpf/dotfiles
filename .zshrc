@@ -75,7 +75,16 @@ export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
 
-alias cfg="GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+function cfg() {
+  GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
+}
+function cfg_push() {
+  pushd
+  cfg add .
+  cfg commit -m "auto"
+  cfg push --set-upstream origin master
+  popd
+}
 
 my_nvim_dir="$HOME/data/nvim-linux64/bin"
 alias vim="$my_nvim_dir/nvim"
