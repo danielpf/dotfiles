@@ -81,6 +81,7 @@ function cfg() {
 function cfg_push() {
   pushd
   cfg add .
+  cfg add .config/nvim
   cfg commit -m "auto"
   cfg push --set-upstream origin master
   popd

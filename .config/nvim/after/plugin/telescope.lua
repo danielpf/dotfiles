@@ -16,11 +16,15 @@ nnoremap(k.lead..'tv', function() builtin.find_files({hidden=true, cwd='~/.confi
 nnoremap(k.lead..'tg', function() require('telescope').extensions.live_grep_args.live_grep_args(); end);
 
 nnoremap(k.lead..'tf', function() builtin.find_files({hidden=true}) end);
-nnoremap('<C-p>', function() builtin.find_files({hidden=true, no_ignore=false}) end);
+nnoremap('<C-p>', function()
+  -- todo: check if we're at ~
+  builtin.find_files({hidden=true, no_ignore=false})
+end);
 
 nnoremap(k.lead..'gf', builtin.git_files);
 
 nnoremap('<leader>ps', function()
+  cwd = vim.cmd("pwd");
   builtin.grep_string({ search = vim.fn.input("Grep > ")});
 end);
 

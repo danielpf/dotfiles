@@ -28,13 +28,12 @@ require('packer').startup(function(use)
   };
 
   use({
-	  'rose-pine/neovim',
-	  as = 'rose-pine',
-	  config = function()
-	  vim.cmd('colorscheme rose-pine')
-	  end,
-	  tag = 'v1.1.0'
+    'rose-pine/neovim',
+    as = 'rose-pine',
+    tag = 'v1.1.0'
   });
+
+  use('Mofiqul/dracula.nvim')
 
   use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
   use('nvim-treesitter/playground');
@@ -56,11 +55,14 @@ require('packer').startup(function(use)
 
       -- Autocompletion
       {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
+      -- Autocompletion sources
+      {'hrsh7th/cmp-buffer'},  -- get from current buffer
+      {'hrsh7th/cmp-path'},  -- file paths
       {'saadparwaiz1/cmp_luasnip'},
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
+      {'hrsh7th/cmp-nvim-lsp-signature-help'},  -- nvim function signatures
+      {'hrsh7th/vim-vsnip'},
 
       -- Snippets
       {'L3MON4D3/LuaSnip'},

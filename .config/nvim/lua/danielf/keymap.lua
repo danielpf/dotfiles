@@ -12,6 +12,7 @@ M.vnoremap = bind("v");
 M.inoremap = bind("i");
 M.xnoremap = bind("x");
 M.tnoremap = bind("t");
+M.cnoremap = bind("c");
 
 --[[
 -- Allow buffer to only be bound to current buffer.
@@ -21,6 +22,7 @@ M.buf_vnoremap = bind("v", {buffer = 0});
 M.buf_inoremap = bind("i", {buffer = 0});
 M.buf_xnoremap = bind("x", {buffer = 0});
 M.buf_tnoremap = bind("t", {buffer = 0});
+M.buf_cnoremap = bind("c", {buffer = 0});
 
 M.k = {
   lead = "<leader>",
