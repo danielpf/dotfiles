@@ -1,0 +1,23 @@
+
+let g:terraform_binary_path="/usr/bin/terraform"
+
+packloadall
+
+set noerrorbells visualbell t_vb=
+set tabstop=4 softtabstop=4
+set expandtab shiftwidth=4 smarttab
+set autoindent
+
+set smartcase
+set hidden
+set ruler
+set incsearch
+set nojoinspaces
+set splitbelow splitright
+
+nnoremap <s-q> :q<cr>
+nnoremap <s-w> :w<cr>
+
+nnoremap <C-t> :tabnew<cr>
+nnoremap <C-n> :tabnext<cr>
+nnoremap <C-p> :tabprev<cr>

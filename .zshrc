@@ -7,9 +7,9 @@ prompt adam2
 setopt histignorealldups # remove consecutive duplicates
 setopt sharehistory
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
+export HISTSIZE=5000
+export SAVEHIST=5000
+export HISTFILE=~/.zsh_history
 
 # ------ KEYS
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -61,15 +61,8 @@ function chpwd() {
     ls --group-directories-first
 }
 
-alias rm="rm -i"
 
 # ------
-
-export PATH=~/.local/bin:$PATH
-export PATH=~/myscripts:$PATH
-export PATH=~/bin:$PATH
-# Ruby:
-export PATH="$PATH:$HOME/.rvm/bin"
 
 export EDITOR="nvim"
 export GPG_TTY=$(tty)
@@ -88,14 +81,6 @@ function cfg_push() {
 }
 
 my_nvim_dir="$HOME/data/nvim-linux64/bin"
-alias vim="$my_nvim_dir/nvim"
-alias nvim="$my_nvim_dir/nvim"
-alias vhome="$my_nvim_dir/nvim ~"
-alias v="$my_nvim_dir/nvim ."
-
-alias ip="ip -c"
-alias df="df -h"
-alias free="free -m"
 
 # man pages colour configuration
 # https://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
@@ -110,5 +95,10 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 
 # -----
 
-. $HOME/.zoxide.sh
+if [ -f "$HOME/.zoxide.sh" ]; then
+. "$HOME/.zoxide.sh"
+fi
 
+if [ -f "~/.alias" ]; then
+    . "~/.alias"
+fi
