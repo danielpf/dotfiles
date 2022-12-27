@@ -88,8 +88,6 @@ fi
 
 # --------------------------------------------------
 
-. "$HOME/.cargo/env"
-
 source ~/.bash/kubectl
 complete -o default -F __start_kubectl k
 
@@ -97,14 +95,15 @@ export GPG_TTY=$(tty)
 export GPR_TOKEN=$(cat ~/token)
 export EDITOR=vim
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 export DISPLAY="my.display:0"
 
-my_nvim_dir="/usr/bin/vim"
-if [ -f ~/.alias ]; then
-    . "~/.alias"
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias gh='gh.exe'
+
+if [ -f ~/.alias.sh ]; then
+    . ~/.alias.sh
 fi
 

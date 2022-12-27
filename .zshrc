@@ -43,12 +43,6 @@ setopt nolisttypes
 # ------ DIRS
 setopt AUTO_CD # cd for lazy people
 
-alias ls='ls --color'
-alias ll='ls --color -alF --human-readable'
-alias la='ls --color -A'
-alias l='ls --color -CF'
-
-alias c="cd"
 
 # create directory structure and cd into it
 function mkcdir() {
@@ -60,7 +54,6 @@ function chpwd() {
     printf "$PWD/:\n"
     ls --group-directories-first
 }
-
 
 # ------
 
@@ -80,8 +73,6 @@ function cfg_push() {
   popd
 }
 
-my_nvim_dir="$HOME/data/nvim-linux64/bin"
-
 # man pages colour configuration
 # https://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
 #
@@ -95,10 +86,14 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 
 # -----
 
-if [ -f "$HOME/.zoxide.sh" ]; then
-. "$HOME/.zoxide.sh"
+if [ -f $HOME/.cargo/env ]; then
+  . $HOME/.cargo/env
 fi
 
-if [ -f "~/.alias" ]; then
-    . "~/.alias"
+if [ -f $HOME/.zoxide.sh ]; then
+. $HOME/.zoxide.sh
+fi
+
+if [ -f $HOME/.alias.sh ]; then
+  . $HOME/.alias.sh
 fi
