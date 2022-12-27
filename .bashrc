@@ -88,22 +88,23 @@ fi
 
 # --------------------------------------------------
 
-source ~/.bash/kubectl
-complete -o default -F __start_kubectl k
-
 export GPG_TTY=$(tty)
-export GPR_TOKEN=$(cat ~/token)
 export EDITOR=vim
-
-export DISPLAY="my.display:0"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias gh='gh.exe'
+if [ -f ~/.common.sh ]; then
+    . ~/.common.sh
+fi
 
-if [ -f ~/.alias.sh ]; then
-    . ~/.alias.sh
+if [ -f $HOME/.bash/kubectl ]; then
+  source ~/.bash/kubectl
+  complete -o default -F __start_kubectl k
+fi
+
+if [ -f $HOME/.cargo/env ]; then
+  . $HOME/.cargo/env
 fi
 

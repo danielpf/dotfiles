@@ -12,7 +12,7 @@ export SAVEHIST=5000
 export HISTFILE=~/.zsh_history
 
 # ------ KEYS
-# Use emacs keybindings even if our EDITOR is set to vi
+# Use emacs keybindings even if our EDITOR is set to vicopy-mode  # enter copy mode
 bindkey -e
 
 # ------ AUTO COMPLETION
@@ -43,7 +43,6 @@ setopt nolisttypes
 # ------ DIRS
 setopt AUTO_CD # cd for lazy people
 
-
 # create directory structure and cd into it
 function mkcdir() {
   mkdir -p -- "$1" && cd -P -- "$1"
@@ -52,26 +51,14 @@ function mkcdir() {
 function chpwd() {
     emulate -L zsh
     printf "$PWD/:\n"
-    ls --group-directories-first
+    ls --color --group-directories-first
 }
 
 # ------
 
-export EDITOR="nvim"
+export EDITOR="vim"
 export GPG_TTY=$(tty)
 export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
-
-function cfg() {
-  GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
-}
-function cfg_push() {
-  pushd
-  cfg add .
-  cfg add .config/nvim
-  cfg commit -m "auto"
-  cfg push --set-upstream origin master
-  popd
-}
 
 # man pages colour configuration
 # https://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
@@ -86,14 +73,14 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 
 # -----
 
-if [ -f $HOME/.cargo/env ]; then
-  . $HOME/.cargo/env
+if [ -f $HOME/.zsh/zoxide.sh ]; then
+. $HOME/.zsh/zoxide.sh
 fi
 
-if [ -f $HOME/.zoxide.sh ]; then
-. $HOME/.zoxide.sh
+if [ -f $HOME/.common.sh ]; then
+  . $HOME/.common.sh
 fi
 
-if [ -f $HOME/.alias.sh ]; then
-  . $HOME/.alias.sh
-fi
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
