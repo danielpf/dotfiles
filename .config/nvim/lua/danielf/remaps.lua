@@ -12,6 +12,8 @@ km.vnoremap("K", ":m '<-2<CR>gv=gv");
 km.vnoremap("H", "");
 km.vnoremap("L", "");
 
+km.nnoremap(k.c_a, "_");
+
 km.nnoremap("J", "mzJ`z"); -- join line
 km.nnoremap("J", "mzJ`z");
 
@@ -33,6 +35,7 @@ km.cnoremap("<C-b>", "<Left>");
 km.cnoremap("<C-a>", "<Home>");
 km.cnoremap("<M-b>", "<C-Left>");
 km.cnoremap("<M-f>", "<C-Right>");
+
 
 
 
