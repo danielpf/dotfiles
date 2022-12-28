@@ -28,23 +28,14 @@ require('packer').startup(function(use)
     config = function() require('telescope').load_extension('live_grep_args') end
   };
 
-  use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    tag = 'v1.1.0'
-  });
-
-  use('Mofiqul/dracula.nvim')
-
   use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
   use('nvim-treesitter/playground');
-
-  use('mbbill/undotree');
 
   use('tpope/vim-fugitive');
   use('tpope/vim-commentary');
   use('lewis6991/gitsigns.nvim');
   use('airblade/vim-rooter');
+  use('mbbill/undotree');
 
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -71,11 +62,21 @@ require('packer').startup(function(use)
     }
   }
 
+  -- visuals
+  use('Mofiqul/dracula.nvim')
+  use({
+    'rose-pine/neovim',
+    as = 'rose-pine',
+    tag = 'v1.1.0'
+  });
+  use('blueyed/vim-diminactive'); -- man pages with vim
   use('nvim-lualine/lualine.nvim') -- Fancier statusline
 
   use('paretje/vim-man'); -- man pages with vim
 
-  use('/home/jdoe/data/stackmap/');
+  -- customs
+  use('/home/jdoe/scripts/nvim/stackmap/');
+  use('/home/jdoe/scripts/nvim/ember-custom/');
 
   if is_bootstrap then
     require('packer').sync()

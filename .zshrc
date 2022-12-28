@@ -83,4 +83,6 @@ fi
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-history-filter.zsh
+export HISTORY_FILTER_EXCLUDE=("_KEY" "Bearer" "fg")
 
