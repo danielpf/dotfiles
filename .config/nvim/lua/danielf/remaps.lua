@@ -1,40 +1,44 @@
-local km = require("danielf.keymap");
-local k = km.k
+local k = require("danielf.keymap");
 
 vim.g.mapleader = " ";
 
-km.inoremap(k.esc, k.c_c); -- to get out of dialogs
-km.nnoremap(k.lead.."pv", "<cmd>Ex<CR>"); -- netrw
+k.inoremap(k.esc, k.c_c); -- to get out of dialogs
+k.nnoremap(k.lead.."pv", "<cmd>Ex<CR>"); -- netrw
 
 -- move selection in visual mode
-km.vnoremap("J", ":m '>+1<CR>gv=gv");
-km.vnoremap("K", ":m '<-2<CR>gv=gv");
-km.vnoremap("H", "");
-km.vnoremap("L", "");
+k.vnoremap("J", ":m '>+1<CR>gv=gv");
+k.vnoremap("K", ":m '<-2<CR>gv=gv");
+k.vnoremap("H", "");
+k.vnoremap("L", "");
 
-km.nnoremap(k.c_a, "_");
+k.nnoremap(k.c_a, "_");
 
-km.nnoremap("J", "mzJ`z"); -- join line
-km.nnoremap("J", "mzJ`z");
+k.nnoremap("J", "mzJ`z"); -- join line
+k.nnoremap("J", "mzJ`z");
 
-km.nnoremap(k.c_d, k.c_d.."zz") -- keep cursor centered while scrolling
-km.nnoremap(k.c_u, k.c_u.."zz")
+k.nnoremap(k.c_d, k.c_d.."zz") -- keep cursor centered while scrolling
+k.nnoremap(k.c_u, k.c_u.."zz")
 
-km.nnoremap("n", "nzzzv"); -- keep cursor centered while searching
-km.nnoremap("N", "Nzzzv");
+k.nnoremap("n", "nzzzv"); -- keep cursor centered while searching
+k.nnoremap("N", "Nzzzv");
+
+k.nnoremap(k.up,     ":vert resize +5"..k.enter);
+k.nnoremap(k.down,   ":vert resize -5"..k.enter);
+k.nnoremap(k.s_up,   ":resize +5"..k.enter);
+k.nnoremap(k.s_down, ":resize -5"..k.enter);
 
 -- pasting
-km.xnoremap(k.lead.."p", "\"_dP");
-km.nnoremap(k.lead.."d", "\"_d");
-km.vnoremap(k.lead.."d", "\"_d");
+k.xnoremap(k.lead.."p", "\"_dP");
+k.nnoremap(k.lead.."d", "\"_d");
+k.vnoremap(k.lead.."d", "\"_d");
 
-km.nnoremap(k.lead..k.lead, ":");
+k.nnoremap(k.lead..k.lead, ":");
 
-km.cnoremap("<C-f>", "<Right>");
-km.cnoremap("<C-b>", "<Left>");
-km.cnoremap("<C-a>", "<Home>");
-km.cnoremap("<M-b>", "<C-Left>");
-km.cnoremap("<M-f>", "<C-Right>");
+k.cnoremap("<C-f>", "<Right>");
+k.cnoremap("<C-b>", "<Left>");
+k.cnoremap("<C-a>", "<Home>");
+k.cnoremap("<M-b>", "<C-Left>");
+k.cnoremap("<M-f>", "<C-Right>");
 
 
 
