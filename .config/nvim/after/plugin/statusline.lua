@@ -1,11 +1,19 @@
--- create highlight group
-vim.cmd("hi MyWinBarColor guifg=#abb2bf guibg=#2c323c")
+-- set up highlighting
+local function apply_hi_group(grp,s)
+  return "%#"..grp.."#"..s.."%*"
+end
+-- lua bg 1 = 2c323c, lua bg 2 = 3e4452
+vim.cmd("hi MyWinBarFg1 guibg=#3e4452 guifg=#abb2bf")
+vim.cmd("hi MyWinBarFg2 guibg=#3e4452 guifg=#6272a4")
+vim.cmd("hi Winbar      guibg=#3e4452")
 -- set title on top of each window; %= → right align, %m → modified, ..
-vim.opt.winbar="%=%#LineNr#%LL%* %m%r%w%h%* %#MyWinBarColor#%f"
+--"%="..
+vim.opt.winbar=" "..apply_hi_group("MyWinBarFg2","%LL").." %m%r%w%h%* "..apply_hi_group("MyWinBarFg1","%f")
+
 
 --- Set lualine as statusline
 
-function my_statusline()
+local function my_statusline()
   return "["..vim.fn.getcwd().."]"
 end
 

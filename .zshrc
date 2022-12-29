@@ -50,7 +50,7 @@ function mkcdir() {
 
 function chpwd() {
     emulate -L zsh
-    printf "$PWD/:\n"
+    #printf "$PWD/:\n"
     ls --color --group-directories-first
 }
 
@@ -83,6 +83,7 @@ fi
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 source ~/.zsh/zsh-history-filter.zsh
 export HISTORY_FILTER_EXCLUDE=("_KEY" "Bearer" "fg")
 export HISTORY_FILTER_SILENT=1

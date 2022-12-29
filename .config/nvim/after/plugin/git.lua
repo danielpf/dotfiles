@@ -22,3 +22,8 @@ require('gitsigns').setup {
 local nnoremap = require("danielf.keymap").nnoremap;
 nnoremap("<leader>gs", function() vim.cmd("Git") end);
 nnoremap("<leader>gb", function() vim.cmd("Git blame") end);
+nnoremap("<leader>gd", function() vim.cmd("Gdiffsplit!") end);
+
+local log_opts = "--graph --abbrev-commit"
+--log_opts = log_opts .. " --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+nnoremap("<leader>gl", function() vim.cmd("Git log "..log_opts.." %") end);

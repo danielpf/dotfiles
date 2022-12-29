@@ -1,3 +1,6 @@
+export GPR_TOKEN=$(cat ~/token)
+
+# TODO: set up GIT_USER, etc, or use `git config ..`
 function cfg() {
   GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
