@@ -43,6 +43,7 @@ k.cnoremap("<C-a>", "<Home>");
 k.cnoremap("<M-b>", "<C-Left>");
 k.cnoremap("<M-f>", "<C-Right>");
 
+k.nnoremap(k.c_p, ":"..k.up)
 
 
 

@@ -27,6 +27,13 @@ require('packer').startup(function(use)
     },
     config = function() require('telescope').load_extension('live_grep_args') end
   };
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
 
   use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
   use('nvim-treesitter/playground');
@@ -36,6 +43,7 @@ require('packer').startup(function(use)
   use('lewis6991/gitsigns.nvim');
   use('airblade/vim-rooter');
   use('mbbill/undotree');
+  use("windwp/nvim-autopairs")
 
   use {
     'VonHeikemen/lsp-zero.nvim',

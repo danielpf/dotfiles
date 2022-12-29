@@ -14,7 +14,7 @@ k.nnoremap(k.lead..'tg', function() require('telescope').extensions.live_grep_ar
 k.nnoremap(k.lead..'tf', function() builtin.find_files({hidden=true}) end);
 k.nnoremap(k.c_f, builtin.current_buffer_fuzzy_find);
 
-k.nnoremap('<C-p>', function()
+k.nnoremap(k.lead..'p', function()
   local home = os.getenv("HOME")
   if vim.fn.getcwd() == home then
     builtin.find_files {
