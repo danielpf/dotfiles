@@ -1,0 +1,43 @@
+#!/bin/sh
+
+if [ -z "$TMUX" ]; then
+  FZF_CMD="fzf --reverse"
+else
+  FZF_CMD="fzf-tmux"
+fi
+
+ZOXIDE_RESULT=$(zoxide query -l | $FZF_CMD)
+
+if [ -z "$ZOXIDE_RESULT" ]; then
+  exit 0
+fi
+
+FOLDER=$(basename $ZOXIDE_RESULT)
+echo "folder: " $FOLDER
+
+SESSION=$(tmux list-sessions | grep $FOLDER | sed -n -E 's/: .*//p')
+echo "session: " $SESSION
+
+if [ -z "$TMUX" ]; then
+  echo "is not tmux"
+  if [ -z "$SESSION" ]; then
+    echo "session does not exist"
+    tmux new-session -s $FOLDER -c $ZOXIDE_RESULT
+  else
+    echo "session exists"
+    tmux attach -t $SESSION
+  fi
+else
+  echo "is tmux"
+  if [ -z "$SESSION" ]; then
+    echo "session does not exist"
+    cd $ZOXIDE_RESULT
+    tmux new-session -d -s $FOLDER -c $ZOXIDE_RESULT
+    tmux switch-client -t $FOLDER
+  else
+    echo "session exists"
+    tmux switch-client -t $SESSION
+  fi
+fi
+
+

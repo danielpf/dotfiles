@@ -1,10 +1,3 @@
-local function bind(mode, outer_opts)
-  return function(lhs, rhs, opts)
-    opts = vim.tbl_extend("force", {}, outer_opts or {}, opts or {});
-    vim.keymap.set(mode, lhs, rhs, opts);
-  end
-end
-
 local M = {
   lead = "<leader>",
   tab = "<Tab>",
@@ -127,6 +120,13 @@ local M = {
   alt_up    = "<M-Up>",
   alt_down  = "<M-Down>"
 };
+
+local function bind(mode, outer_opts)
+  return function(lhs, rhs, opts)
+    opts = vim.tbl_extend("force", {}, outer_opts or {}, opts or {});
+    vim.keymap.set(mode, lhs, rhs, opts);
+  end
+end
 
 M.nnoremap = bind("n");
 M.vnoremap = bind("v");

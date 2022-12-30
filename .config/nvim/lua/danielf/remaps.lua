@@ -23,6 +23,9 @@ k.nnoremap(k.c_u, k.c_u.."zz")
 k.nnoremap("n", "nzzzv"); -- keep cursor centered while searching
 k.nnoremap("N", "Nzzzv");
 
+k.nnoremap(k.c_l, "=="); -- autoformat after pasting
+k.vnoremap(k.c_l, "="); -- autoformat after pasting
+
 -- pasting
 k.xnoremap(k.lead.."p", "\"_dP");
 k.nnoremap(k.lead.."d", "\"_d");

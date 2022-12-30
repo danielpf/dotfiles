@@ -1,7 +1,5 @@
 ------ netrw
-
-----vim.g['netrw_banner'] = 0;
-
+--vim.g['netrw_banner'] = 0;
 --vim.g['netrw_liststyle'] = 3;
 --vim.g['netrw_browse_split'] = 4;
 --vim.g['netrw_winsize'] = 80; -- split width = 25%
@@ -19,6 +17,8 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
+local k = require("danielf.keymap")
+
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -31,11 +31,23 @@ require("nvim-tree").setup({
   },
   renderer = {
     group_empty = true,
+    icons = {
+      show = {
+        git = true
+      }
+    },
   },
   filters = {
     dotfiles = false,
   },
+  on_attach = function (bufnr)
+    local api = require("nvim-tree.api")
+
+    local opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
+    k.nnoremap(k.c_e, k.c_e, opts)
+    k.nnoremap(k.c_l, function() print(api.tree.get_node_under_cursor().absolute_path) end, opts)
+  end
 })
 
-k = require("danielf.keymap")
-k.nnoremap(k.lead.."e", ":NvimTreeToggle<CR>")
+local api = require("nvim-tree.api")
+k.nnoremap(k.alt_e, ":NvimTreeToggle<CR>")

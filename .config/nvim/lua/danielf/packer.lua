@@ -8,14 +8,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd("packadd packer.nvim")
 end
 
-
---vim.cmd([[packadd packer.nvim]]);
-
--- run packer
--- Do ":so %" and then ":PackerSync"
+-- run packer; do ":so %" and then ":PackerSync"
 require('packer').startup(function(use)
-  -- Packer can manage itself
-  use('wbthomason/packer.nvim');
+  use('wbthomason/packer.nvim'); -- Packer can manage itself
 
   use('nvim-lua/plenary.nvim'); -- useful library for plugins
 
@@ -35,9 +30,6 @@ require('packer').startup(function(use)
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
 
-  use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
-  use('nvim-treesitter/playground');
-
   use('tpope/vim-fugitive');
   use('tpope/vim-commentary');
   use('lewis6991/gitsigns.nvim');
@@ -45,6 +37,10 @@ require('packer').startup(function(use)
   use('mbbill/undotree');
   use("windwp/nvim-autopairs")
 
+  use('akinsho/toggleterm.nvim')
+
+  use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
+  use('nvim-treesitter/playground');
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
@@ -89,7 +85,6 @@ require('packer').startup(function(use)
   if is_bootstrap then
     require('packer').sync()
   end
-
 end)
 
 -- When we are bootstrapping a configuration, it doesn't

@@ -21,7 +21,7 @@ local function open_terminal()
   })
   vim.api.nvim_open_term(terminal_buffer_id, {})
 end
-k.nnoremap("<M-enter>", open_terminal)
 
-
-
+require("toggleterm").setup{}
+k.nnoremap("<M-enter>", function() vim.cmd("ToggleTerm") end)
+k.tnoremap("<M-enter>", function() vim.cmd("ToggleTerm") end)
