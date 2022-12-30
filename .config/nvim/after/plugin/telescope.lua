@@ -22,8 +22,10 @@ k.nnoremap('<leader>ps', function()
 end);
 
 -- look for files
-k.nnoremap(k.lead..'tb', function() builtin.buffers({ignore_current_buffer=true}) end);
-k.nnoremap(k.lead..'to', builtin.oldfiles);
+k.nnoremap(k.lead..'tb', function() builtin.buffers({
+  ignore_current_buffer=false
+}) end);
+k.nnoremap(k.lead..'to', function () builtin.oldfiles({only_cwd=true}) end);
 k.nnoremap(k.lead..'tf', function() builtin.find_files({hidden=true, no_ignore=true}) end);
 k.nnoremap(k.c_f, builtin.current_buffer_fuzzy_find);
 k.nnoremap(k.alt_f, function()
