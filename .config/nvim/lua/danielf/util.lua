@@ -1,6 +1,6 @@
-danielf = {}
+local M = {}
 
-danielf.getVisualSelection = function ()
+M.getVisualSelection = function ()
 	vim.cmd('noau normal! "vy"')
 	local text = vim.fn.getreg('v')
 	vim.fn.setreg('v', {})
@@ -13,3 +13,4 @@ danielf.getVisualSelection = function ()
 	end
 end
 
+return M

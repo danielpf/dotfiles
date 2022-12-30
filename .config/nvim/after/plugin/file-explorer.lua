@@ -31,10 +31,20 @@ require("nvim-tree").setup({
   },
   renderer = {
     group_empty = true,
+    highlight_git = true,
+    highlight_opened_files = "name",
+    indent_width = 2,
     icons = {
       show = {
         git = true
-      }
+      },
+      glyphs = {
+        git = {
+          unstaged = "m",
+          untracked = "u",
+          deleted = "d",
+        },
+      },
     },
   },
   filters = {
@@ -50,4 +60,7 @@ require("nvim-tree").setup({
 })
 
 local api = require("nvim-tree.api")
-k.nnoremap(k.alt_e, ":NvimTreeToggle<CR>")
+k.nnoremap(k.alt_e, k.command("NvimTreeToggle"))
+k.nnoremap(k.c_g, k.command("NvimTreeFindFile"))
+
+

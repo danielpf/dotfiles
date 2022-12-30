@@ -120,6 +120,7 @@ local M = {
   alt_up    = "<M-Up>",
   alt_down  = "<M-Down>"
 };
+M.k = M;
 
 local function bind(mode, outer_opts)
   return function(lhs, rhs, opts)
@@ -145,7 +146,9 @@ M.buf_xnoremap = bind("x", {buffer = 0});
 M.buf_tnoremap = bind("t", {buffer = 0});
 M.buf_cnoremap = bind("c", {buffer = 0});
 
-M.k = M;
+M.command = function (s)
+  return ":"..s..M.enter
+end
 
 return M
 

@@ -1,6 +1,6 @@
 ----- treesitter -----
 
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = {
     "markdown",
@@ -73,10 +73,10 @@ lsp.set_preferences({
 })
 
 lsp.ensure_installed({
-        'tsserver',
-        'eslint',
-        'sumneko_lua',
-        'rust_analyzer'
+  'tsserver',
+  'eslint',
+  'sumneko_lua',
+  'rust_analyzer'
 });
 
 lsp.nvim_workspace();
@@ -90,7 +90,7 @@ lsp.setup();
 ----- autopairs -----
 
 require("nvim-autopairs").setup {
-  disable_filetype = { "TelescopePrompt" , "vim" },
+  disable_filetype = { "TelescopePrompt", "vim" },
   map_c_h = true,
   map_c_w = true,
 }
@@ -109,3 +109,10 @@ require("nvim-autopairs").setup {
 --local map_bs = true  -- map the <BS> key
 --local map_c_h = false  -- Map the <C-h> key to delete a pair
 --local map_c_w = false -- map <c-w> to delete a pair if possible
+
+
+local k = require("danielf.keymap")
+k.nnoremap("p", "p==")
+k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
+k.nnoremap(k.c_l, "==");
+k.vnoremap(k.c_l, "=");
