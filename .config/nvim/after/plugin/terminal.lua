@@ -1,4 +1,4 @@
-k = require("danielf.keymap")
+local k = require("danielf.keymap")
 
 k.tnoremap(k.esc, k.c_n..k.c_leftbar)
 
@@ -23,5 +23,5 @@ local function open_terminal()
 end
 
 require("toggleterm").setup{}
-k.nnoremap("<M-enter>", function() vim.cmd("ToggleTerm") end)
-k.tnoremap("<M-enter>", function() vim.cmd("ToggleTerm") end)
+k.nnoremap(k.c_t, function() vim.cmd("ToggleTerm") end)
+k.tnoremap(k.c_t, function() vim.cmd("ToggleTerm") end) -- deactivate in term mode

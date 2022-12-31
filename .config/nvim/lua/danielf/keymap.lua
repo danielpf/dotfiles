@@ -5,6 +5,19 @@ local M = {
   esc = "<Esc>",
   enter = "<CR>",
   c_leftbar = "<C-\\>",
+  left      = "<Left>",
+  right     = "<Right>",
+  up        = "<Up>",
+  down      = "<Down>",
+  f1 = "<F1>",
+  f2 = "<F2>",
+  f3 = "<F3>",
+  f4 = "<F4>",
+  f5 = "<F5>",
+  f6 = "<F6>",
+  f7 = "<F7>",
+  f8 = "<F8>",
+  f9 = "<F9>",
   c_a = "<C-a>",
   c_b = "<C-b>",
   c_c = "<C-c>",
@@ -41,6 +54,10 @@ local M = {
   c_7 = "<C-7>",
   c_8 = "<C-8>",
   c_9 = "<C-9>",
+  c_left    = "<C-Left>",
+  c_right   = "<C-Right>",
+  c_up      = "<C-Up>",
+  c_down    = "<C-Down>",
   alt_a = "<M-a>",
   alt_b = "<M-b>",
   alt_c = "<M-c>",
@@ -77,6 +94,11 @@ local M = {
   alt_7 = "<M-7>",
   alt_8 = "<M-8>",
   alt_9 = "<M-9>",
+  alt_left  = "<M-Left>",
+  alt_right = "<M-Right>",
+  alt_up    = "<M-Up>",
+  alt_down  = "<M-Down>",
+  alt_enter  = "<M-Enter>",
   s_a = "<S-a>",
   s_b = "<S-b>",
   s_c = "<S-c>",
@@ -103,22 +125,11 @@ local M = {
   s_x = "<S-x>",
   s_y = "<S-y>",
   s_z = "<S-z>",
-  left      = "<Left>",
-  right     = "<Right>",
-  up        = "<Up>",
-  down      = "<Down>",
-  c_left    = "<C-Left>",
-  c_right   = "<C-Right>",
-  c_up      = "<C-Up>",
-  c_down    = "<C-Down>",
   s_left    = "<S-Left>",
   s_right   = "<S-Right>",
   s_up      = "<S-Up>",
   s_down    = "<S-Down>",
-  alt_left  = "<M-Left>",
-  alt_right = "<M-Right>",
-  alt_up    = "<M-Up>",
-  alt_down  = "<M-Down>"
+  s_enter    = "<S-Enter>",
 };
 M.k = M;
 
@@ -147,7 +158,8 @@ M.buf_tnoremap = bind("t", {buffer = 0});
 M.buf_cnoremap = bind("c", {buffer = 0});
 
 M.command = function (s)
-  return ":"..s..M.enter
+  --return ":"..s..M.enter
+  return "<cmd>"..s..M.enter
 end
 
 return M

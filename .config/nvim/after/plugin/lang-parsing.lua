@@ -1,3 +1,5 @@
+local k = require("danielf.keymap")
+
 ----- treesitter -----
 
 require 'nvim-treesitter.configs'.setup {
@@ -65,10 +67,10 @@ lsp.set_preferences({
   manage_nvim_cmp = true,
   call_servers = 'local',
   sign_icons = {
-    error = '✘',
-    warn = '▲',
-    hint = '⚑',
-    info = 'i'
+    --error = '✘',
+    --warn = '▲',
+    --hint = '⚑',
+    --info = 'i'
   }
 })
 
@@ -86,6 +88,15 @@ lsp.nvim_workspace();
 --});
 
 lsp.setup();
+
+vim.diagnostic.config({
+  virtual_text = true
+})
+k.nnoremap("<F2>", vim.diagnostic.goto_next)
+k.nnoremap("<F3>", vim.diagnostic.goto_next)
+k.nnoremap("<F4>", vim.diagnostic.goto_prev)
+k.nnoremap("td", function() vim.cmd("Telescope diagnostics") end)
+k.nnoremap(k.alt_enter, function() vim.lsp.buf.code_action() end)
 
 ----- autopairs -----
 
@@ -111,7 +122,6 @@ require("nvim-autopairs").setup {
 --local map_c_w = false -- map <c-w> to delete a pair if possible
 
 
-local k = require("danielf.keymap")
 k.nnoremap("p", "p==")
 k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
 k.nnoremap(k.c_l, "==");
