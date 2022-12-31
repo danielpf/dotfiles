@@ -30,9 +30,9 @@ require('lualine').setup {
   sections = {
     lualine_a = {'branch'},
     lualine_b = { my_statusline },
-    lualine_c = {'diff'},
+    lualine_c = {'progress'},
     --lualine_c = {{'filename', file_status = true}},   --, path = 2
-    lualine_x = {'diagnostics'},
+    lualine_x = {'diff'},
     lualine_y = {'filetype', 'encoding', 'fileformat'},
     lualine_z = {'mode'}
   },

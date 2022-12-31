@@ -3,6 +3,7 @@
 function rewrite_history() {
     local new_history="$HISTFILE.bak"
     local excluded=0
+    echo "rewriting history"
 
     cat $HISTFILE | while read entry; do
         # TODO: Doing this per line is very slow!
@@ -19,7 +20,6 @@ function rewrite_history() {
     mv "$new_history" "$HISTFILE"
 }
 
-
 function _matches_filter() {
     local value
     for value in $HISTORY_FILTER_EXCLUDE; do
@@ -29,7 +29,6 @@ function _matches_filter() {
     done
     return 1
 }
-
 
 function _history_filter() {
     if _matches_filter "$1"; then

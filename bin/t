@@ -3,7 +3,10 @@
 if [ -z "$TMUX" ]; then
   FZF_CMD="fzf --reverse"
 else
-  FZF_CMD="fzf-tmux"
+  FZF_CMD="fzf --reverse"
+
+  # this is a tmux plugin; havent managed to make it work
+  #FZF_CMD="fzf-tmux"
 fi
 
 ZOXIDE_RESULT=$(zoxide query -l | $FZF_CMD)

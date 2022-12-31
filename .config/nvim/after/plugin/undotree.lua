@@ -4,7 +4,10 @@ vim.g['undotree_WindowLayout'] = 3;
 vim.g['undotree_HighlightChangedText'] = 1;
 
 local k = require("danielf.keymap")
-k.nnoremap(k.lead.."u", function() vim.cmd('UndotreeToggle') end)
+k.nnoremap(k.lead.."u", function()
+  vim.cmd('UndotreeToggle')
+  vim.cmd('UndotreeFocus')
+end)
 
 local undoTreeGroup = vim.api.nvim_create_augroup('undoTreeGroup', {clear = true})
 --local windows = vim.fn.getwininfo();

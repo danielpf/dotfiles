@@ -57,6 +57,7 @@ require 'nvim-treesitter.configs'.setup {
 ----- lsp -----
 
 local lsp = require('lsp-zero');
+lsp.preset('recommended')
 
 lsp.set_preferences({
   suggest_lsp_servers = true,
@@ -89,15 +90,6 @@ lsp.nvim_workspace();
 
 lsp.setup();
 
-vim.diagnostic.config({
-  virtual_text = true
-})
-k.nnoremap("<F2>", vim.diagnostic.goto_next)
-k.nnoremap("<F3>", vim.diagnostic.goto_next)
-k.nnoremap("<F4>", vim.diagnostic.goto_prev)
-k.nnoremap("td", function() vim.cmd("Telescope diagnostics") end)
-k.nnoremap(k.alt_enter, function() vim.lsp.buf.code_action() end)
-
 ----- autopairs -----
 
 require("nvim-autopairs").setup {
@@ -126,3 +118,22 @@ k.nnoremap("p", "p==")
 k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
 k.nnoremap(k.c_l, "==");
 k.vnoremap(k.c_l, "=");
+
+vim.diagnostic.config({
+  virtual_text = true
+})
+k.nnoremap("<F3>", vim.diagnostic.goto_next)
+k.nnoremap("<F4>", vim.diagnostic.goto_prev)
+k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
+
+local builtin = require('telescope.builtin');
+k.nnoremap(k.alt_enter, function() vim.lsp.buf.code_action() end)
+k.nnoremap(k.lead..'lr', builtin.lsp_references);
+k.nnoremap(k.lead..'li', builtin.lsp_implementations);
+k.nnoremap(k.lead..'ld', builtin.lsp_definitions);
+k.nnoremap(k.lead..'lt', builtin.lsp_type_definitions);
+k.nnoremap(k.lead..'lc', builtin.lsp_incoming_calls);
+k.nnoremap(k.lead..'lo', builtin.lsp_outgoing_calls);
+k.nnoremap(k.lead..'ll', builtin.lsp_document_symbols);
+
+

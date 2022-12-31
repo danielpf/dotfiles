@@ -27,3 +27,4 @@ vim.opt.termguicolors = true;
 vim.opt.list = true;
 
 vim.opt.laststatus = 3
+vim.opt.cursorline = true  -- make current line highlighted
