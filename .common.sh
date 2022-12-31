@@ -1,3 +1,6 @@
+export GPR_TOKEN=$(cat ~/token)
+
+# TODO: set up GIT_USER, etc, or use `git config ..`
 function cfg() {
   GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
@@ -8,6 +11,15 @@ function cfg_push() {
   cfg commit -m "auto"
   cfg push --set-upstream origin master
   popd
+}
+
+function set_windows_terminal_title() {
+  echo -ne "\033]0;$1\a"
+}
+function set_windows_terminal_title_to_hostname() {
+  host=$((if hostname | grep -E 'EPESM.*'; then echo "WSL"; else hostname; fi) | cut -c1-20)
+  last_command=$(!:0)
+  set_windows_terminal_title "$host"
 }
 
 if [ -d /mnt/c/Windows ]; then

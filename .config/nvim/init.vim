@@ -20,12 +20,12 @@ function! TrimWhiteSpace()
   keeppatterns %s/\s\+$//e
   call winrestview(l:save)
 endfunction
+
 augroup trimwhitespacegroup
   autocmd!
   auto BufWritePre * :call TrimWhiteSpace()
 
   " do other on-save actions here if you want
-
 
 lua require("danielf");
 

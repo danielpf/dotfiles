@@ -1,3 +1,4 @@
-nmap <buffer> <C-j> <CR>
+nmap <buffer> <C-j> p
+nmap <buffer> <Space> p
 
 

@@ -1,3 +1,4 @@
+vim.opt.signcolumn = 'yes'
 
 vim.opt.tabstop = 2;      -- number of spaces tab counts for
 vim.opt.softtabstop = 2;  -- number of spaces tab counts for while editing

@@ -10,3 +10,5 @@
 [user]
 	name = Daniel
 	email = danielpedro@tecnico.ulisboa.pt
+[pull]
+	ff = only

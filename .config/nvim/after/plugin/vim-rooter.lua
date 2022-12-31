@@ -1,1 +1,1 @@
-vim.g['rooter_patters'] = {'.git','build.gradle','build.kts','Makefile'}
+vim.g['rooter_patters'] = {'.git','.cfg','build.gradle','build.kts','Makefile'}

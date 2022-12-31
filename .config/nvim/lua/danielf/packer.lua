@@ -1,20 +1,16 @@
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   is_bootstrap = true
   vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.cmd [[packadd packer.nvim]]
+  vim.cmd("packadd packer.nvim")
 end
 
-
-vim.cmd([[packadd packer.nvim]]);
-
--- run packer
--- Do ":so %" and then ":PackerSync"
+-- run packer; do ":so %" and then ":PackerSync"
 require('packer').startup(function(use)
-  -- Packer can manage itself
-  use('wbthomason/packer.nvim');
+  use('wbthomason/packer.nvim'); -- Packer can manage itself
 
   use('nvim-lua/plenary.nvim'); -- useful library for plugins
 
@@ -26,25 +22,25 @@ require('packer').startup(function(use)
     },
     config = function() require('telescope').load_extension('live_grep_args') end
   };
-
-  use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    tag = 'v1.1.0'
-  });
-
-  use('Mofiqul/dracula.nvim')
-
-  use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
-  use('nvim-treesitter/playground');
-
-  use('mbbill/undotree');
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
 
   use('tpope/vim-fugitive');
   use('tpope/vim-commentary');
   use('lewis6991/gitsigns.nvim');
   use('airblade/vim-rooter');
+  use('mbbill/undotree');
+  use("windwp/nvim-autopairs")
 
+  use('akinsho/toggleterm.nvim')
+
+  use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
+  use('nvim-treesitter/playground');
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
@@ -70,16 +66,25 @@ require('packer').startup(function(use)
     }
   }
 
+  -- visuals
+  use('Mofiqul/dracula.nvim')
+  use({
+    'rose-pine/neovim',
+    as = 'rose-pine',
+    tag = 'v1.1.0'
+  });
+  use('blueyed/vim-diminactive'); -- man pages with vim
   use('nvim-lualine/lualine.nvim') -- Fancier statusline
 
   use('paretje/vim-man'); -- man pages with vim
 
-  use('/home/jdoe/data/stackmap/');
+  -- customs
+  use('/home/jdoe/scripts/nvim/stackmap/');
+  use('/home/jdoe/scripts/nvim/ember-custom/');
 
   if is_bootstrap then
     require('packer').sync()
   end
-
 end)
 
 -- When we are bootstrapping a configuration, it doesn't
