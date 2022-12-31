@@ -2,7 +2,7 @@ export GPR_TOKEN=$(cat ~/token)
 
 # TODO: set up GIT_USER, etc, or use `git config ..`
 function cfg() {
-  GIT_CONFIG=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
+  GIT_CONFIG_GLOBAL=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
 function cfg_push() {
   pushd
@@ -89,4 +89,5 @@ alias cp="cp -i"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && \
+  source "$HOME/.sdkman/bin/sdkman-init.sh"

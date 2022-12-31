@@ -1,14 +1,25 @@
-[safe]
-	directory = *
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+[remote "origin"]
+	url = https://github.com/danielpf/dotfiles.git
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
 [push]
 	default = simple
+[safe]
+	directory = *
+
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
 [credential]
 	username = danielpf
 	helper = cache
 [user]
 	name = Daniel
 	email = danielpedro@tecnico.ulisboa.pt
-[pull]
-	ff = only
