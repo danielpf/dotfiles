@@ -10,9 +10,12 @@ k.nnoremap(k.tab.."tp", builtin.pickers);
 
 -- text search
 k.nnoremap(k.lead..'sg', function()
-  require('telescope').extensions.live_grep_args.live_grep_args({"--smart-case"});
+  require('telescope').extensions.live_grep_args.live_grep_args({
+    "--smart-case",
+    "--no-ignore-git"
+  });
 end);
-k.nnoremap(k.lead..'ss', builtin.grep_string);
+k.nnoremap(k.lead..'ss', builtin.grep_string); -- search exact string?
 k.nnoremap(k.lead..'/', builtin.search_history);
 k.nnoremap('<M-/>', builtin.search_history);
 k.nnoremap('<leader>sS', function()

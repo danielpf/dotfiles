@@ -65,6 +65,7 @@ require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     }
   }
+  use("jose-elias-alvarez/null-ls.nvim")
 
   -- visuals
   use('Mofiqul/dracula.nvim')
