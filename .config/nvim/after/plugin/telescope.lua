@@ -1,5 +1,12 @@
 local k = require("danielf.keymap");
 
+local telescope = require("telescope")
+if not telescope then return end
+telescope.setup {
+  defaults = {
+  }
+}
+
 local builtin = require('telescope.builtin');
 
 -- look for pickers
@@ -12,21 +19,23 @@ k.nnoremap(k.tab.."tp", builtin.pickers);
 k.nnoremap(k.lead..'sg', function()
   require('telescope').extensions.live_grep_args.live_grep_args({
     "--smart-case",
-    "--no-ignore-git"
+    "--no-ignore-git",
+    layout_config = {
+      horizontal = {
+        width = 200
+      }
+    }
   });
 end);
-k.nnoremap(k.lead..'ss', builtin.grep_string); -- search exact string?
-k.nnoremap(k.lead..'/', builtin.search_history);
 k.nnoremap('<M-/>', builtin.search_history);
 k.nnoremap('<leader>sS', function()
   -- the advantage of this one is that the screen is unobstructed, I guess
   builtin.grep_string({ search = vim.fn.input("Grep > ")});
 end);
+k.nnoremap(k.lead..'ss', builtin.grep_string); -- search exact string?
+k.nnoremap(k.lead..'/', builtin.search_history);
 
 -- look for files
-k.nnoremap(k.lead..'vb', function() builtin.buffers({
-  ignore_current_buffer=false
-}) end);
 k.nnoremap(k.lead..'fo', function () builtin.oldfiles({only_cwd=true}) end);
 k.nnoremap(k.lead..'ff', function() builtin.find_files({hidden=true, no_ignore=true}) end);
 k.nnoremap(k.c_f, builtin.current_buffer_fuzzy_find);
@@ -50,6 +59,7 @@ end);
 k.nnoremap(k.lead..'fg', builtin.git_files);
 
 -- vim
+k.nnoremap(k.lead..'vb', function() builtin.buffers({ ignore_current_buffer=false }) end);
 k.nnoremap(k.lead..'vh', builtin.help_tags);
 k.nnoremap(k.lead..'vc', builtin.command_history);
 k.nnoremap(k.lead..'vo', builtin.vim_options);

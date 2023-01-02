@@ -83,11 +83,6 @@ lsp.ensure_installed({
 });
 
 lsp.nvim_workspace();
-
---lsp.set_preferences({
---  sign_icons = { }
---});
-
 lsp.setup();
 
 ----- null_ls -----

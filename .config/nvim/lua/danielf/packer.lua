@@ -20,7 +20,9 @@ require('packer').startup(function(use)
     requires = {
       {'nvim-telescope/telescope-live-grep-args.nvim'},
     },
-    config = function() require('telescope').load_extension('live_grep_args') end
+    config = function()
+      require('telescope').load_extension('live_grep_args')
+    end
   };
   use {
     'nvim-tree/nvim-tree.lua',

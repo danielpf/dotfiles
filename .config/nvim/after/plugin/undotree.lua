@@ -1,6 +1,6 @@
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.undodir";
-vim.g['undotree_WindowLayout'] = 3;
+vim.g['undotree_WindowLayout'] = 4;
 vim.g['undotree_HighlightChangedText'] = 1;
 
 local k = require("danielf.keymap")
