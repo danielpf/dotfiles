@@ -36,6 +36,7 @@ export PATH=$HOME/.yarn/bin/:$PATH
 export PATH=$HOME/bin/:$PATH
 export PATH="$PATH:$HOME/.rvm/bin" # Ruby
 export PATH=$HOME/myscripts:$PATH
+export PATH='node_modules/.bin/':$PATH
 
 # -------------------------------------------
 
