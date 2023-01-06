@@ -1,7 +1,6 @@
 local k = require("danielf.keymap")
 
 ----- treesitter -----
-
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = {
@@ -86,7 +85,6 @@ lsp.nvim_workspace();
 lsp.setup();
 
 ----- null_ls -----
-
 local null_ls = require("null-ls")
 
 null_ls.setup({
@@ -98,7 +96,6 @@ null_ls.setup({
 })
 
 ----- autopairs -----
-
 require("nvim-autopairs").setup {
   disable_filetype = { "TelescopePrompt", "vim" },
   map_c_h = true,
@@ -120,7 +117,6 @@ require("nvim-autopairs").setup {
 --local map_c_h = false  -- Map the <C-h> key to delete a pair
 --local map_c_w = false -- map <c-w> to delete a pair if possible
 
-
 k.nnoremap("p", "p==")
 k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
 k.nnoremap(k.c_l, "==");
@@ -134,7 +130,7 @@ k.nnoremap("<F4>", vim.diagnostic.goto_prev)
 k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
 
 local builtin = require('telescope.builtin');
-k.nnoremap(k.alt_enter, function() vim.lsp.buf.code_action() end)
+k.nnoremap(k.lead..'la', function() vim.lsp.buf.code_action() end)
 k.nnoremap(k.lead..'lr', builtin.lsp_references);
 k.nnoremap(k.lead..'li', builtin.lsp_implementations);
 k.nnoremap(k.lead..'ld', builtin.lsp_definitions);

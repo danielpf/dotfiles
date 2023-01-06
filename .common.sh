@@ -1,6 +1,12 @@
-export GPR_TOKEN=$(cat ~/token)
+if [ -f $compiled_vim ]; then
+  export NPM_TOKEN=$(cat ~/token)
+else
+  echo "missing NPM_TOKEN"
+  export NPM_TOKEN=""
+fi
 
-# TODO: set up GIT_USER, etc, or use `git config ..`
+export GPG_TTY=$(tty) # gpg needs this
+
 function cfg() {
   GIT_CONFIG_GLOBAL=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
@@ -28,14 +34,11 @@ fi
 
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-# -------------------------------------------
-
-# $PATH
+# $PATH -------------------------------------------
 export PATH=$HOME/.local/bin/:$PATH
 export PATH=$HOME/.yarn/bin/:$PATH
-export PATH=$HOME/bin/:$PATH
 export PATH="$PATH:$HOME/.rvm/bin" # Ruby
-export PATH=$HOME/myscripts:$PATH
+export PATH=$HOME/scripts/bin:$PATH
 export PATH='node_modules/.bin/':$PATH
 
 # -------------------------------------------
@@ -64,14 +67,21 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias k="kubectl"
 alias g="/usr/bin/gh"
 
+alias yarn="yarn --emoji true"
+
 downloaded_vim=$HOME/nvim-linux64/bin/nvim
-if [ -f $downloaded_vim ]; then
-  my_nvim_exec=$downloaded_vim
+compiled_vim=/usr/local/bin/nvim
+if [ -f $compiled_vim ]; then
+  my_nvim_exec=$compiled_vim
 else
-  if [ -f /usr/bin/nvim ]; then
-    my_nvim_exec=/usr/bin/nvim
+  if [ -f $downloaded_vim ]; then
+    my_nvim_exec=$downloaded_vim
   else
-    my_nvim_exec=/usr/bin/vim
+    if [ -f /usr/bin/nvim ]; then
+      my_nvim_exec=/usr/bin/nvim
+    else
+      my_nvim_exec=/usr/bin/vim
+    fi
   fi
 fi
 export EDITOR=$my_nvim_exec

@@ -23,8 +23,10 @@ local k = require("danielf.keymap")
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   sync_root_with_cwd = true,
+  remove_keymaps = false, -- todo
   view = {
-    adaptive_size = true,
+    adaptive_size = false,
+    hide_root_folder = true,
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
@@ -35,17 +37,21 @@ require("nvim-tree").setup({
     group_empty = true,
     highlight_git = true,
     highlight_opened_files = "icon",
+    highlight_modified = "name",
     full_name = true,
     indent_width = 2,
     icons = {
+      git_placement = "before",
+      modified_placement = "after",
       show = {
-        git = true
+        git = false,
+        modified = true,
       },
       glyphs = {
         git = {
-          unstaged = "m",
-          untracked = "u",
-          deleted = "d",
+          unstaged = "+",
+          untracked = "?",
+          deleted = "-",
         },
       },
     },

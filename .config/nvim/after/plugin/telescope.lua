@@ -64,4 +64,6 @@ k.nnoremap(k.lead..'vh', builtin.help_tags);
 k.nnoremap(k.lead..'vc', builtin.command_history);
 k.nnoremap(k.lead..'vo', builtin.vim_options);
 k.nnoremap(k.lead..'vl', builtin.loclist);
+k.nnoremap(k.lead..'vr', builtin.registers);
+k.nnoremap(k.lead..'vj', builtin.jumplist);
 

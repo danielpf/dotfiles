@@ -53,3 +53,4 @@ vim.cmd('colorscheme dracula');
 
 --- highlighting of the line you are in
 vim.cmd("hi CursorLine  guibg=#373A4B")
+vim.cmd("hi VertSplit  guibg=#6272a4")
