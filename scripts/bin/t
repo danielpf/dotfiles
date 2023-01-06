@@ -1,0 +1,34 @@
+#!/bin/sh
+
+ZOXIDE_RESULT=$(zoxide query -l | fzf --reverse)
+if [ -z "$ZOXIDE_RESULT" ]; then
+  exit 0
+fi
+
+FOLDER=$(basename $ZOXIDE_RESULT)
+echo "folder: " $FOLDER
+
+EXISTING_SESSION=$(tmux list-sessions | grep $FOLDER | sed -n -E 's/: .*//p')
+echo "session: " $EXISTING_SESSION
+
+if [ -z "$TMUX" ]; then
+  echo "is not tmux"
+  if [ -z "$EXISTING_SESSION" ]; then
+    tmux display-message "new session $FOLDER"
+    tmux new-session -s $FOLDER -c $ZOXIDE_RESULT
+  else
+    tmux attach -t $EXISTING_SESSION
+  fi
+else
+  echo "is tmux"
+  if [ -z "$EXISTING_SESSION" ]; then
+    cd $ZOXIDE_RESULT
+    tmux display-message "new session $FOLDER"
+    tmux new-session -d -s $FOLDER -c $ZOXIDE_RESULT
+    tmux switch-client -t $FOLDER
+  else
+    tmux switch-client -t $EXISTING_SESSION
+  fi
+fi
+
+

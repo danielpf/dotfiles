@@ -72,8 +72,8 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 
 if [ -f $HOME/.zsh/zoxide.sh ]; then
   . $HOME/.zsh/zoxide.sh
-  # find -maxdepth 2 -type d -not -path '*/.*' | xargs -n 1 zoxide add
-  # zoxide add $HOME/.config/nvim
+  find -maxdepth 2 -type d -not -path '*/.*' | xargs -n 1 zoxide add
+  zoxide add $HOME/.config/nvim
 fi
 
 if [ -f $HOME/.common.sh ]; then

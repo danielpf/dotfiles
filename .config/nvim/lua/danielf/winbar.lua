@@ -19,16 +19,15 @@ M.winbar_filetype_exclude = {
 local get_filename = function()
   local filename = vim.fn.expand("%:t")
   local extension = vim.fn.expand("%:e")
-  local f = require("utils")
 
-  if not f.isempty(filename) then
+  if not DK.is_empty(filename) then
     local file_icon, file_icon_color =
       require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
 
     local hl_group = "FileIconColor" .. extension
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
-    if f.isempty(file_icon) then
+    if DK.is_empty(file_icon) then
       file_icon = ""
       file_icon_color = ""
     end
@@ -46,7 +45,7 @@ local get_gps = function()
 
   if not gps.is_available() or gps_location == "error" then return "" end
 
-  if not require("utils").isempty(gps_location) then
+  if not DK.is_empty(gps_location) then
     return require("config.icons").ui.ChevronRight .. " " .. gps_location
   else
     return ""
@@ -63,7 +62,6 @@ end
 
 M.get_winbar = function()
   if excludes() then return end
-  local f = require("utils")
   local value = get_filename()
 
   local gps_added = false
@@ -73,7 +71,7 @@ M.get_winbar = function()
     if not f.isempty(gps_value) then gps_added = true end
   end
 
-  if not f.isempty(value) and f.get_buf_option("mod") then
+  if not DK.is_empty(value) and f.get_buf_option("mod") then
     local mod = "%#LineNr#" .. require("config.icons").ui.Circle .. "%*"
     if gps_added then
       value = value .. " " .. mod
