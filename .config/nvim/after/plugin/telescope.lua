@@ -17,8 +17,8 @@ DK.nnoremap(DK.tab.."tp", builtin.pickers);
 
 -- text search
 DK.nnoremap(DK.lead..'sg', function()
-  if DK.at_home() then
-    builtin.live_grep({ search_dirs = DK.cfg_files() })
+  if DU.at_home() then
+    builtin.live_grep({ search_dirs = DU.cfg_files() })
   else
     require('telescope').extensions.live_grep_args.live_grep_args({
       layout_config = {
@@ -42,9 +42,9 @@ DK.nnoremap(DK.lead..'fo', function () builtin.oldfiles({only_cwd=true}) end);
 DK.nnoremap(DK.lead..'ff', function() builtin.find_files({hidden=true, no_ignore=true}) end);
 DK.nnoremap(DK.c_f, builtin.current_buffer_fuzzy_find);
 DK.nnoremap(DK.alt_f, function()
-  if DK.at_home() then
+  if DU.at_home() then
     builtin.find_files {
-      find_command = DK.cfg_git_command('ls-files'),
+      find_command = DU.cfg_git_command('ls-files'),
       hidden=true,
       no_ignore=false,
     }

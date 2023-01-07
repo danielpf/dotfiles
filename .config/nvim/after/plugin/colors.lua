@@ -40,17 +40,18 @@ require('rose-pine').setup({
 })
 
 -- set background transparent
---function ColorMyPencils()
---  color = color or "rose-pine"
---  vim.cmd("colorscheme " .. color);
---  vim.api.nvim_set_hl(0, "Normal", { bg = "none" } );
---  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" } );
---end
---ColorMyPencils()
+function ColorMyPencils()
+  local color = color or "rose-pine"
+  vim.cmd("colorscheme " .. color);
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" } );
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" } );
+end
+ColorMyPencils()
 
 -- set colorscheme after options
 vim.cmd('colorscheme dracula');
 
 --- highlighting of the line you are in
 vim.cmd("hi CursorLine  guibg=#373A4B")
+vim.cmd("hi CursorLineNr  guifg=#ffb86c")
 vim.cmd("hi VertSplit  guibg=#6272a4")
