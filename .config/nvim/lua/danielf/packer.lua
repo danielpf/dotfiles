@@ -55,12 +55,15 @@ require('packer').startup(function(use)
       {'hrsh7th/nvim-cmp'},
       -- Autocompletion sources
       {'hrsh7th/cmp-buffer'},  -- get from current buffer
+      {"amarakon/nvim-cmp-buffer-lines"},  -- get from current buffer
       {'hrsh7th/cmp-path'},  -- file paths
       {'saadparwaiz1/cmp_luasnip'},
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
       {'hrsh7th/cmp-nvim-lsp-signature-help'},  -- nvim function signatures
       {'hrsh7th/vim-vsnip'},
+      {"lukas-reineke/cmp-rg"},
+      {"David-Kunz/cmp-npm"},
 
       -- Snippets
       {'L3MON4D3/LuaSnip'},

@@ -1,8 +1,12 @@
-if [ -f $compiled_vim ]; then
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+#
+if [ -f ~/token ]; then
   export NPM_TOKEN=$(cat ~/token)
 else
-  echo "missing NPM_TOKEN"
-  export NPM_TOKEN=""
+  if [ -z "$NPM_TOKEN" ]; then
+    echo "missing NPM_TOKEN"
+    export NPM_TOKEN=""
+  fi
 fi
 
 export GPG_TTY=$(tty) # gpg needs this
@@ -18,6 +22,10 @@ function cfg_push() {
   cfg push --set-upstream origin master
   popd
 }
+function cfg_add() {
+  cfg add .
+  cfg add .config/nvim
+}
 
 function set_windows_terminal_title() {
   echo -ne "\033]0;$1\a"
@@ -28,18 +36,15 @@ function set_windows_terminal_title_to_hostname() {
   set_windows_terminal_title "$host"
 }
 
-if [ -d /mnt/c/Windows ]; then
-  . $HOME/.wsl.sh
-fi
-
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-# $PATH -------------------------------------------
 export PATH=$HOME/.local/bin/:$PATH
 export PATH=$HOME/.yarn/bin/:$PATH
 export PATH="$PATH:$HOME/.rvm/bin" # Ruby
 export PATH=$HOME/scripts/bin:$PATH
 export PATH='node_modules/.bin/':$PATH
+
+if [ -d /mnt/c/Windows ]; then
+  . $HOME/.wsl.sh
+fi
 
 # -------------------------------------------
 
@@ -96,7 +101,6 @@ alias free="free -m"
 
 alias rm="rm -i"
 alias cp="cp -i"
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

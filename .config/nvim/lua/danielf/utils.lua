@@ -28,6 +28,9 @@ function M.get_os_command_output(cmd, cwd)
     print("must receive a table command arg")
     return {}
   end
+  if cwd == nil then
+    cwd = '.'
+  end
   local command = table.remove(cmd, 1)
   local stderr = {}
   local stdout, ret = Job:new({
@@ -56,7 +59,29 @@ function M.cfg_git_command(git_cmd)
 end
 
 function M.cfg_files()
-  return M.get_os_command_output(M.cfg_git_command("ls-files"), os.getenv("HOME"))
+  return M.get_os_command_output(M.cfg_git_command("ls-files"))
+end
+
+M.NONEDITOR_FILETYPES = {
+  "startify",
+  "dashboard",
+  "packer",
+  "neogitstatus",
+  "neo-tree",
+  "Trouble",
+  "alpha",
+  "lir",
+  "Outline",
+  "spectre_panel",
+  "toggleterm",
+  "NvimTree",
+  "undotree",
+  "TelescopePrompt",
+  "harpoon",
+}
+
+function M.is_editor(filetype)
+  return not vim.tbl_contains(M.NONEDITOR_FILETYPES, filetype)
 end
 
 return M

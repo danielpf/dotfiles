@@ -10,7 +10,7 @@ vim.opt.number = true;
 vim.opt.relativenumber = true;
 
 vim.opt.joinspaces = false;
-vim.opt.wrap = true;
+vim.opt.wrap = false;
 vim.opt.colorcolumn = "120";
 
 vim.opt.incsearch = true;

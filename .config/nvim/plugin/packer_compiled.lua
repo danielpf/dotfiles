@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
+  ["cmp-npm"] = {
+    loaded = true,
+    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/cmp-npm",
+    url = "https://github.com/David-Kunz/cmp-npm"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
@@ -103,6 +108,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
+  },
+  ["cmp-rg"] = {
+    loaded = true,
+    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/cmp-rg",
+    url = "https://github.com/lukas-reineke/cmp-rg"
   },
   cmp_luasnip = {
     loaded = true,
@@ -168,6 +178,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-cmp-buffer-lines"] = {
+    loaded = true,
+    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/nvim-cmp-buffer-lines",
+    url = "https://github.com/amarakon/nvim-cmp-buffer-lines"
   },
   ["nvim-lspconfig"] = {
     loaded = true,

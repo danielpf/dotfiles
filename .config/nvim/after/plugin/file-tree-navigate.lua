@@ -119,3 +119,50 @@ vim.cmd("hi NvimTreeGitUnstaged guifg=#ff6e6e")
 vim.cmd("hi clear NvimTreeOpenedFile")
 vim.cmd("hi NvimTreeOpenedFile gui=underline")
 
+local my_nvim_close_grp = vim.api.nvim_create_augroup('my_nvim_close_grp', { clear = true })
+vim.api.nvim_create_autocmd('WinClosed', {
+  group = my_nvim_close_grp,
+  callback = function (ev)
+    local this_buf_ft = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
+    if not DU.is_editor(this_buf_ft) then
+      return
+    end
+
+    -- check if we will be left with no editor windows
+    local winhandles = vim.api.nvim_tabpage_list_wins(0)
+    local editor_windows = {}
+    for _,wh in pairs(winhandles) do
+      local bufhandle = vim.api.nvim_win_get_buf(wh)
+      local ft = vim.api.nvim_buf_get_option(bufhandle, 'filetype')
+      if DU.is_editor(ft) then
+        table.insert(editor_windows, { ft = ft })
+      end
+    end
+    -- TODO
+
+    -- if #editor_windows == 0 then
+    --   return
+    -- end
+    -- -- get a buffer to load to this window instead
+    -- local bufhandles = {}
+    -- for _,bh in pairs(vim.api.nvim_list_bufs()) do
+    --   local ft = vim.api.nvim_buf_get_option(bh, 'filetype')
+    --   if DU.is_editor(ft) then
+    --     table.insert(bufhandles, bh)
+    --   end
+    -- end
+    -- if #bufhandles == 0 then
+    --   return
+    -- end
+    -- local this_window_handle = tonumber(vim.fn.expand('<amatch>'))
+
+    -- for _,bh in pairs(bufhandles) do
+    --   if vim.api.nvim_buf_get_option(bh, 'modified') then
+    --     vim.api.nvim_win_set_buf(this_window_handle, bh)
+    --     return
+    --   end
+    -- end
+    -- vim.api.nvim_win_set_buf(this_window_handle, bufhandles[1])
+  end
+})
+

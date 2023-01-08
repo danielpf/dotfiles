@@ -54,9 +54,14 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 ----- lsp -----
+require("mason.settings").set({
+  ui = {
+    border = 'rounded'
+  }
+})
 
 local lsp = require('lsp-zero');
-lsp.preset('recommended')
+lsp.preset('lsp-compe')
 
 lsp.set_preferences({
   suggest_lsp_servers = true,
@@ -81,6 +86,18 @@ lsp.ensure_installed({
   'rust_analyzer'
 });
 
+-- Pass arguments to a language server
+lsp.configure('tsserver', {
+  on_attach = function(client, bufnr)
+    print('hello tsserver')
+  end,
+  settings = {
+    completions = {
+      completeFunctionCalls = true
+    }
+  }
+})
+
 lsp.nvim_workspace();
 lsp.setup();
 
@@ -91,8 +108,48 @@ null_ls.setup({
     sources = {
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.completion.spell,
     },
+})
+
+----- cmp -----
+local cmp = require('cmp');
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end
+  },
+  {
+    name = 'nvim_lsp',
+    entry_filter = function(entry, _)
+      return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+    end
+  },
+  { name = 'vsnip' },
+  { name = 'nvim_lsp_signature_help' },
+  { name = 'buffer-lines', keyword_length = 4 },
+  { name = 'rg', keyword_length = 3  },
+  { name = 'npm', keyword_length = 4 },
+  {
+    { name = 'path' }
+  }
+})
+
+----- diagnostic -----
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = false,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = 'minimal',
+    border = 'rounded',
+    source = 'always',
+    header = '',
+    prefix = '',
+  },
 })
 
 ----- autopairs -----
@@ -118,13 +175,11 @@ require("nvim-autopairs").setup {
 --local map_c_w = false -- map <c-w> to delete a pair if possible
 
 k.nnoremap("p", "p==")
+k.nnoremap("P", "P==")
 k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
 k.nnoremap(k.c_l, "==");
 k.vnoremap(k.c_l, "=");
 
-vim.diagnostic.config({
-  virtual_text = true
-})
 k.nnoremap("<F3>", vim.diagnostic.goto_next)
 k.nnoremap("<F4>", vim.diagnostic.goto_prev)
 k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
