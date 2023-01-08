@@ -86,10 +86,38 @@ lsp.ensure_installed({
   'rust_analyzer'
 });
 
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
 -- Pass arguments to a language server
 lsp.configure('tsserver', {
   on_attach = function(client, bufnr)
-    print('hello tsserver')
+    -- local bufname = vim.api.nvim_buf_get_name(bufnr)
+    -- if string.match(bufname, '.+ember.+') then
+    --   vim.lsp.buf_detach_client(bufnr, client.id)
+    -- end
+    -- on_attach(client, bufnr)
   end,
   settings = {
     completions = {
@@ -107,7 +135,7 @@ local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint,
+        -- null_ls.builtins.diagnostics.eslint,
     },
 })
 
@@ -119,7 +147,7 @@ cmp.setup({
       vim.fn["vsnip#anonymous"](args.body)
     end
   },
-  {
+  sources = {{
     name = 'nvim_lsp',
     entry_filter = function(entry, _)
       return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
@@ -132,7 +160,7 @@ cmp.setup({
   { name = 'npm', keyword_length = 4 },
   {
     { name = 'path' }
-  }
+  }}
 })
 
 ----- diagnostic -----

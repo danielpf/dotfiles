@@ -10,6 +10,8 @@ require('danielf.custom_vim_opts')
 -- link harpoon and nvim-tree marks
 -- optional requires
 -- set tmux window names (from vim)
+-- tmux paste buffer
+-- hop plugin
 
 -- open help vertically
 vim.api.nvim_create_autocmd('FileType', {
@@ -17,10 +19,18 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'wincmd L'
 })
 
+vim.api.nvim_create_autocmd('BufNew', {
+  callback = function (ev)
+
+  end
+})
+
+
 P = function(v)
   print(vim.inspect(v))
   return v
 end
 
+-- globals
 DU = require("danielf.utils")
 DK = require("danielf.keymap")

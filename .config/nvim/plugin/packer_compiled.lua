@@ -144,6 +144,11 @@ _G.packer_plugins = {
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
   },
+  ["hop.nvim"] = {
+    loaded = true,
+    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/hop.nvim",
+    url = "https://github.com/phaazon/hop.nvim"
+  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",

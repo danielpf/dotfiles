@@ -56,10 +56,14 @@ DK.nnoremap(DK.lead..'fg', builtin.git_files);
 DK.nnoremap(DK.lead..'fh', function () vim.cmd("Telescope harpoon marks") end);
 
 -- vim
-DK.nnoremap(DK.lead..'vb', function() builtin.buffers({ ignore_current_buffer=false }) end);
 DK.nnoremap(DK.lead..'vh', builtin.help_tags);
 DK.nnoremap(DK.lead..'vc', builtin.command_history);
 DK.nnoremap(DK.lead..'vo', builtin.vim_options);
 DK.nnoremap(DK.lead..'vl', builtin.loclist);
 DK.nnoremap(DK.lead..'vr', builtin.registers);
 DK.nnoremap(DK.lead..'vj', builtin.jumplist);
+local telebuffer = function()
+  builtin.buffers({ ignore_current_buffer=true })
+end
+DK.nnoremap(DK.lead..'vb', telebuffer);
+DK.nnoremap(DK.c_b, telebuffer);

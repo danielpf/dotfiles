@@ -78,6 +78,7 @@ M.NONEDITOR_FILETYPES = {
   "undotree",
   "TelescopePrompt",
   "harpoon",
+  "lspinfo",
 }
 
 function M.is_editor(filetype)

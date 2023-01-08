@@ -74,8 +74,8 @@ end
 --vim.cmd("hi MyWinBarFg2 guibg=#3e4452 guifg=#6272a4")
 --vim.cmd("hi Winbar      guibg=#3e4452")
 vim.cmd("hi MyWinBarDark  guibg=#6272a4 guifg=#000000")
-vim.cmd("hi MyWinBarLight guibg=#6373a5 guifg=#ffffff")
-vim.cmd("hi MyWinBarActiv guibg=#3d5090 guifg=#ffffff gui=underline")
+vim.cmd("hi MyWinBarLight guibg=#6373a5 guifg=#bdcbfc")
+vim.cmd("hi MyWinBarActiv guibg=#506097 guifg=#ffffff gui=bold")
 vim.cmd("hi Winbar guibg=#6373a5 guifg=#efefef")
 local winbar_group = vim.api.nvim_create_augroup('winbar_group', {clear = true})
 vim.api.nvim_create_autocmd({
@@ -152,7 +152,7 @@ local function tmux_status()
 end
 
 local function registers()
-  local maxlen = 8
+  local maxlen = 15
   local contents = { }
   for i = 1, 3, 1 do
     local s = vim.fn.eval("@"..i)
@@ -163,7 +163,6 @@ local function registers()
   end
   return table.concat(contents, "|")
 end
-
 
 -- See `:help lualine.txt`
 require('lualine').setup {

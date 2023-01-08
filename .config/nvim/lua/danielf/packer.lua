@@ -38,6 +38,7 @@ require('packer').startup(function(use)
   use('airblade/vim-rooter');
   use('mbbill/undotree');
   use("windwp/nvim-autopairs")
+  use("phaazon/hop.nvim")
 
   use('akinsho/toggleterm.nvim')
 
