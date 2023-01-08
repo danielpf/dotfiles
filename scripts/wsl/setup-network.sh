@@ -22,7 +22,7 @@ echo "network address: $network_address"
 other_vm_ip="$(echo $network_address | sed -n -E 's/\.[0-9]+$//gp').50"
 echo "other machine ip: "$other_vm_ip
 
-sudo echo "nameserver ${other_vm_ip}" >/etc/resolv.conf
+sudo sed -i "s/.*/nameserver ${other_vm_ip}/" /etc/resolv.conf
 
 # alternatives
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
