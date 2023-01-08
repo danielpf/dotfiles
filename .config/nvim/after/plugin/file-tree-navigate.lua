@@ -96,7 +96,9 @@ require("nvim-tree").setup({
       silent = true,
       nowait = true
     }
+
     k.nnoremap(k.c_e, k.c_e, opts)
+
     k.nnoremap('z', function()
       local node = api.tree.get_node_under_cursor()
       if node.type == "directory" then
@@ -105,6 +107,7 @@ require("nvim-tree").setup({
         api.node.navigate.parent_close()
       end
     end, opts)
+
     k.nnoremap('Z', function()
       api.node.navigate.parent_close()
     end, opts)

@@ -79,6 +79,7 @@ M.NONEDITOR_FILETYPES = {
   "TelescopePrompt",
   "harpoon",
   "lspinfo",
+  "qf",
 }
 
 function M.is_editor(filetype)

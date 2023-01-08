@@ -1,3 +1,6 @@
+# cursor color
+echo -ne "\e]12;#909090\a"
+
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 #
 if [ -f ~/token ]; then

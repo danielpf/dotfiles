@@ -146,7 +146,8 @@ local function tmux_status()
     "tmux",
     "display-message",
     "-p",
-    "#S:#{active_window_index}"
+    -- "#S:#{active_window_index}"
+    "#{active_window_index}"
   })
   return s[1]
 end
