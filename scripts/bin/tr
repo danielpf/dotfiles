@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -z "$TMUX" ]; then
+  echo "not in tmux"
+  exit 1
+fi
+
+FOLDER=$(basename $PWD)
+tmux rename-session $FOLDER

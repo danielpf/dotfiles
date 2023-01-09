@@ -1,7 +1,6 @@
 local k = require("danielf.keymap")
 
 ----- treesitter -----
-
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = {
@@ -55,8 +54,14 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 ----- lsp -----
+require("mason.settings").set({
+  ui = {
+    border = 'rounded'
+  }
+})
 
 local lsp = require('lsp-zero');
+lsp.preset('lsp-compe')
 
 lsp.set_preferences({
   suggest_lsp_servers = true,
@@ -81,25 +86,101 @@ lsp.ensure_installed({
   'rust_analyzer'
 });
 
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
+-- Pass arguments to a language server
+lsp.configure('tsserver', {
+  on_attach = function(client, bufnr)
+    -- local bufname = vim.api.nvim_buf_get_name(bufnr)
+    -- if string.match(bufname, '.+ember.+') then
+    --   vim.lsp.buf_detach_client(bufnr, client.id)
+    -- end
+    -- on_attach(client, bufnr)
+  end,
+  settings = {
+    completions = {
+      completeFunctionCalls = true
+    }
+  }
+})
+
 lsp.nvim_workspace();
-
---lsp.set_preferences({
---  sign_icons = { }
---});
-
 lsp.setup();
 
-vim.diagnostic.config({
-  virtual_text = true
+----- null_ls -----
+local null_ls = require("null-ls")
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.stylua,
+        -- null_ls.builtins.diagnostics.eslint,
+    },
 })
-k.nnoremap("<F2>", vim.diagnostic.goto_next)
-k.nnoremap("<F3>", vim.diagnostic.goto_next)
-k.nnoremap("<F4>", vim.diagnostic.goto_prev)
-k.nnoremap("td", function() vim.cmd("Telescope diagnostics") end)
-k.nnoremap(k.alt_enter, function() vim.lsp.buf.code_action() end)
+
+----- cmp -----
+local cmp = require('cmp');
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end
+  },
+  sources = {{
+    name = 'nvim_lsp',
+    entry_filter = function(entry, _)
+      return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+    end
+  },
+  { name = 'vsnip' },
+  { name = 'nvim_lsp_signature_help' },
+  { name = 'buffer-lines', keyword_length = 4 },
+  { name = 'rg', keyword_length = 3  },
+  { name = 'npm', keyword_length = 4 },
+  {
+    { name = 'path' }
+  }}
+})
+
+----- diagnostic -----
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = false,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = 'minimal',
+    border = 'rounded',
+    source = 'always',
+    header = '',
+    prefix = '',
+  },
+})
 
 ----- autopairs -----
-
 require("nvim-autopairs").setup {
   disable_filetype = { "TelescopePrompt", "vim" },
   map_c_h = true,
@@ -121,8 +202,24 @@ require("nvim-autopairs").setup {
 --local map_c_h = false  -- Map the <C-h> key to delete a pair
 --local map_c_w = false -- map <c-w> to delete a pair if possible
 
-
 k.nnoremap("p", "p==")
+k.nnoremap("P", "P==")
 k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
 k.nnoremap(k.c_l, "==");
 k.vnoremap(k.c_l, "=");
+
+k.nnoremap("<F3>", vim.diagnostic.goto_next)
+k.nnoremap("<F4>", vim.diagnostic.goto_prev)
+k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
+
+local builtin = require('telescope.builtin');
+k.nnoremap(k.lead..'la', function() vim.lsp.buf.code_action() end)
+k.nnoremap(k.lead..'lr', builtin.lsp_references);
+k.nnoremap(k.lead..'li', builtin.lsp_implementations);
+k.nnoremap(k.lead..'ld', builtin.lsp_definitions);
+k.nnoremap(k.lead..'lt', builtin.lsp_type_definitions);
+k.nnoremap(k.lead..'lc', builtin.lsp_incoming_calls);
+k.nnoremap(k.lead..'lo', builtin.lsp_outgoing_calls);
+k.nnoremap(k.lead..'ll', builtin.lsp_document_symbols);
+
+

@@ -1,2 +1,2 @@
-local k = require("danielf.keymap");
+require("danielf.keymap");
 

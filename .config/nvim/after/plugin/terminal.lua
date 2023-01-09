@@ -1,7 +1,5 @@
 local k = require("danielf.keymap")
 
-k.tnoremap(k.esc, k.c_n..k.c_leftbar)
-
 -- work in progress
 local terminal_buffer_id
 local terminal_window_id
@@ -23,5 +21,7 @@ local function open_terminal()
 end
 
 require("toggleterm").setup{}
-k.nnoremap(k.c_t, function() vim.cmd("ToggleTerm") end)
-k.tnoremap(k.c_t, function() vim.cmd("ToggleTerm") end) -- deactivate in term mode
+k.nnoremap(k.alt_enter, function() vim.cmd("ToggleTerm") end)
+k.tnoremap(k.alt_enter, function() vim.cmd("ToggleTerm") end) -- deactivate in term mode
+
+k.tnoremap(k.esc, k.c_leftbar..k.c_n)

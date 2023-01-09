@@ -3,7 +3,15 @@ local k = require("danielf.keymap");
 vim.g.mapleader = " ";
 
 k.inoremap(k.esc, k.c_c); -- to get out of dialogs; doesnt seem to work
-k.nnoremap("<s-q>",k.command("q"));
+k.nnoremap("<s-q>", function()
+  if DU.is_empty(vim.api.nvim_buf_get_name(0)) then
+    if vim.fn.input("exit? y/n: ") == "y" then
+      vim.cmd("q")
+    end
+  else
+    vim.cmd("bd")
+  end
+end);
 k.nnoremap("<s-w>",k.command("w"));
 k.nnoremap("+",    k.command("noh"));
 k.nnoremap(k.lead.."pv", "<cmd>Ex<CR>"); -- netrw

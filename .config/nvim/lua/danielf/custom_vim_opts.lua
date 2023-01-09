@@ -10,7 +10,7 @@ vim.opt.number = true;
 vim.opt.relativenumber = true;
 
 vim.opt.joinspaces = false;
-vim.opt.wrap = true;
+vim.opt.wrap = false;
 vim.opt.colorcolumn = "120";
 
 vim.opt.incsearch = true;
@@ -27,3 +27,4 @@ vim.opt.termguicolors = true;
 vim.opt.list = true;
 
 vim.opt.laststatus = 3
+vim.opt.cursorline = true  -- make current line highlighted

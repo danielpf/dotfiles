@@ -22,6 +22,7 @@ end
 local function process_file_ring()
 end
 
+-- TODO
 local harpoon_group = vim.api.nvim_create_augroup('harpoon_group', { clear = true })
 local windows = vim.fn.getwininfo();
 vim.api.nvim_create_autocmd('BufWritePost', {
@@ -29,6 +30,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   callback = function()
   end
 })
+
+require("telescope").load_extension('harpoon')
 
 k.nnoremap("<leader>a", function() harpoon_mark.add_file() end)
 --k.nnoremap("\\", function() harpoon_ui.toggle_quick_menu() end)

@@ -88,7 +88,6 @@ fi
 
 # --------------------------------------------------
 
-export GPG_TTY=$(tty)
 export EDITOR=vim
 
 # Add an "alert" alias for long running commands.  Use like so:

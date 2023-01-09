@@ -20,7 +20,9 @@ require('packer').startup(function(use)
     requires = {
       {'nvim-telescope/telescope-live-grep-args.nvim'},
     },
-    config = function() require('telescope').load_extension('live_grep_args') end
+    config = function()
+      require('telescope').load_extension('live_grep_args')
+    end
   };
   use {
     'nvim-tree/nvim-tree.lua',
@@ -36,6 +38,7 @@ require('packer').startup(function(use)
   use('airblade/vim-rooter');
   use('mbbill/undotree');
   use("windwp/nvim-autopairs")
+  use("phaazon/hop.nvim")
 
   use('akinsho/toggleterm.nvim')
 
@@ -53,18 +56,22 @@ require('packer').startup(function(use)
       {'hrsh7th/nvim-cmp'},
       -- Autocompletion sources
       {'hrsh7th/cmp-buffer'},  -- get from current buffer
+      {"amarakon/nvim-cmp-buffer-lines"},  -- get from current buffer
       {'hrsh7th/cmp-path'},  -- file paths
       {'saadparwaiz1/cmp_luasnip'},
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
       {'hrsh7th/cmp-nvim-lsp-signature-help'},  -- nvim function signatures
       {'hrsh7th/vim-vsnip'},
+      {"lukas-reineke/cmp-rg"},
+      {"David-Kunz/cmp-npm"},
 
       -- Snippets
       {'L3MON4D3/LuaSnip'},
       {'rafamadriz/friendly-snippets'},
     }
   }
+  use("jose-elias-alvarez/null-ls.nvim")
 
   -- visuals
   use('Mofiqul/dracula.nvim')

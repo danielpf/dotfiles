@@ -55,7 +55,6 @@ function chpwd() {
 # ------
 
 export EDITOR="vim"
-export GPG_TTY=$(tty)
 export MANPAGER="less -X" # Don't clear the screen after quitting a manual page
 
 # man pages colour configuration
@@ -72,7 +71,9 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 # -----
 
 if [ -f $HOME/.zsh/zoxide.sh ]; then
-. $HOME/.zsh/zoxide.sh
+  . $HOME/.zsh/zoxide.sh
+  find -maxdepth 2 -type d -not -path '*/.*' | xargs -n 1 zoxide add
+  zoxide add $HOME/.config/nvim
 fi
 
 if [ -f $HOME/.common.sh ]; then
@@ -84,5 +85,5 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source ~/.zsh/zsh-history-filter.zsh
 export HISTORY_FILTER_EXCLUDE=("_KEY" "Bearer" "fg")
-export HISTORY_FILTER_SILENT=1
+#export HISTORY_FILTER_SILENT=1
 

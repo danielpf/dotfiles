@@ -1,6 +1,20 @@
-export GPR_TOKEN=$(cat ~/token)
+echo 11
+# cursor color
+echo -ne "\e]12;#909090\a"
 
-# TODO: set up GIT_USER, etc, or use `git config ..`
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+#
+if [ -f ~/token ]; then
+  export NPM_TOKEN=$(cat ~/token)
+else
+  if [ -z "$NPM_TOKEN" ]; then
+    echo "missing NPM_TOKEN"
+    export NPM_TOKEN=""
+  fi
+fi
+
+export GPG_TTY=$(tty) # gpg needs this
+
 function cfg() {
   GIT_CONFIG_GLOBAL=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
@@ -12,6 +26,10 @@ function cfg_push() {
   cfg push --set-upstream origin master
   popd
 }
+function cfg_add() {
+  cfg add .
+  cfg add .config/nvim
+}
 
 function set_windows_terminal_title() {
   echo -ne "\033]0;$1\a"
@@ -22,20 +40,15 @@ function set_windows_terminal_title_to_hostname() {
   set_windows_terminal_title "$host"
 }
 
+export PATH=$HOME/.local/bin/:$PATH
+export PATH=$HOME/.yarn/bin/:$PATH
+export PATH="$PATH:$HOME/.rvm/bin" # Ruby
+export PATH=$HOME/scripts/bin:$PATH
+export PATH='node_modules/.bin/':$PATH
+
 if [ -d /mnt/c/Windows ]; then
   . $HOME/.wsl.sh
 fi
-
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-# -------------------------------------------
-
-# $PATH
-export PATH=$HOME/.local/bin/:$PATH
-export PATH=$HOME/.yarn/bin/:$PATH
-export PATH=$HOME/bin/:$PATH
-export PATH="$PATH:$HOME/.rvm/bin" # Ruby
-export PATH=$HOME/myscripts:$PATH
 
 # -------------------------------------------
 
@@ -63,14 +76,23 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias k="kubectl"
 alias g="/usr/bin/gh"
 
+alias yarn="yarn --emoji true"
+
+echo 22
+
 downloaded_vim=$HOME/nvim-linux64/bin/nvim
-if [ -f $downloaded_vim ]; then
-  my_nvim_exec=$downloaded_vim
+compiled_vim=/usr/local/bin/nvim
+if [ -f $compiled_vim ]; then
+  my_nvim_exec=$compiled_vim
 else
-  if [ -f /usr/bin/nvim ]; then
-    my_nvim_exec=/usr/bin/nvim
+  if [ -f $downloaded_vim ]; then
+    my_nvim_exec=$downloaded_vim
   else
-    my_nvim_exec=/usr/bin/vim
+    if [ -f /usr/bin/nvim ]; then
+      my_nvim_exec=/usr/bin/nvim
+    else
+      my_nvim_exec=/usr/bin/vim
+    fi
   fi
 fi
 export EDITOR=$my_nvim_exec
@@ -86,8 +108,9 @@ alias free="free -m"
 alias rm="rm -i"
 alias cp="cp -i"
 
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && \
   source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+echo 33
