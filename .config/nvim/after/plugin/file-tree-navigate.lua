@@ -24,6 +24,7 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   sync_root_with_cwd = true,
   remove_keymaps = false, -- todo
+  hijack_unnamed_buffer_when_opening = false,
   view = {
     adaptive_size = false,
     hide_root_folder = true,
@@ -48,6 +49,7 @@ require("nvim-tree").setup({
         modified = true,
       },
       glyphs = {
+        modified = "*",
         git = {
           unstaged = "+",
           untracked = "?",
@@ -70,6 +72,12 @@ require("nvim-tree").setup({
     expand_all = {
       exclude = { "node_modules", "dist", "build" }
     },
+    open_file = {
+      resize_window = false
+    },
+  },
+  modified = {
+    enable = true
   },
   diagnostics = {
     enable = true,
@@ -98,6 +106,8 @@ require("nvim-tree").setup({
     }
 
     k.nnoremap(k.c_e, k.c_e, opts)
+    k.nnoremap("H", "23k", opts)
+    k.nnoremap("L", "23j", opts)
 
     k.nnoremap('z', function()
       local node = api.tree.get_node_under_cursor()
@@ -134,6 +144,7 @@ vim.api.nvim_create_autocmd('WinClosed', {
     -- check if we will be left with no editor windows
     local winhandles = vim.api.nvim_tabpage_list_wins(0)
     local editor_windows = {}
+    local noneditor_windows = {}
     for _,wh in pairs(winhandles) do
       local bufhandle = vim.api.nvim_win_get_buf(wh)
       local ft = vim.api.nvim_buf_get_option(bufhandle, 'filetype')
@@ -141,31 +152,20 @@ vim.api.nvim_create_autocmd('WinClosed', {
         table.insert(editor_windows, { ft = ft })
       end
     end
-    -- TODO
 
-    -- if #editor_windows == 0 then
-    --   return
-    -- end
-    -- -- get a buffer to load to this window instead
-    -- local bufhandles = {}
-    -- for _,bh in pairs(vim.api.nvim_list_bufs()) do
-    --   local ft = vim.api.nvim_buf_get_option(bh, 'filetype')
-    --   if DU.is_editor(ft) then
-    --     table.insert(bufhandles, bh)
-    --   end
-    -- end
-    -- if #bufhandles == 0 then
-    --   return
-    -- end
-    -- local this_window_handle = tonumber(vim.fn.expand('<amatch>'))
-
-    -- for _,bh in pairs(bufhandles) do
-    --   if vim.api.nvim_buf_get_option(bh, 'modified') then
-    --     vim.api.nvim_win_set_buf(this_window_handle, bh)
-    --     return
-    --   end
-    -- end
-    -- vim.api.nvim_win_set_buf(this_window_handle, bufhandles[1])
+    -- get a buffer to load
+    local bufhandles = {}
+    local somebuf
+    for _,bh in pairs(vim.api.nvim_list_bufs()) do
+      somebuf = bh
+      local ft = vim.api.nvim_buf_get_option(bh, 'filetype')
+      local modified =  vim.api.nvim_buf_get_option(bh, 'modified')
+      if DU.is_editor(ft) and modified then
+        vim.schedule(function()
+          -- TODO
+        end)
+      end
+    end
   end
 })
 

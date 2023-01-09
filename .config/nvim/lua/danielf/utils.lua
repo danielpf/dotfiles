@@ -86,4 +86,24 @@ function M.is_editor(filetype)
   return not vim.tbl_contains(M.NONEDITOR_FILETYPES, filetype)
 end
 
+local Maybe = {}
+
+function Maybe:of(val)
+  self = Maybe
+  local obj = {}
+  if val then
+    obj.val = val
+  end
+  return obj
+end
+function Maybe:if_present(func)
+  if self.val then
+    return func(self.val)
+  end
+  return self
+end
+function Maybe:is_empty()
+  return self.val == nil
+end
+
 return M

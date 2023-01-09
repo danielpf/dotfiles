@@ -15,6 +15,7 @@ require('danielf.custom_vim_opts')
 -- floating toggleterm
 -- make terminal modifiable
 -- telescope sg inside a dir in nvim
+--
 
 -- open help vertically
 vim.api.nvim_create_autocmd('FileType', {

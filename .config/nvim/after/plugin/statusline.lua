@@ -5,6 +5,7 @@ local function apply_hi(grp,s)
 end
 
  local function get_filename(bufnr, winwidth)
+   local modified = vim.api.nvim_buf_get_option(bufnr, 'modified')
    local filename = vim.fn.expand("%")
    if DU.is_empty(filename) then
      return "[No Name]"
@@ -16,10 +17,10 @@ end
    if excess_size > 0 then
      filename = string.gsub(filename, string.rep(".", excess_size), "┅", 1)
    end
-   if vim.api.nvim_buf_get_option(bufnr, 'modified') then
+   if modified then
      filename = filename.."*"
    end
-   return filename
+   return filename, modified
  end
 
  local function get_icon(filename,extension)
@@ -98,11 +99,17 @@ vim.api.nvim_create_autocmd({
       local winwidth = vim.api.nvim_win_get_width(winhandle)
       local winheight = vim.api.nvim_win_get_height(winhandle)
 
-      local filename = get_filename(bufnr, winwidth)
+      local filename, modified = get_filename(bufnr, winwidth)
 
       local val = ""
       val = val..apply_hi("MyWinBarLight",winnr)
-      val = val.." "..apply_hi("MyWinBarActiv",filename)
+      local filename_color
+      if modified then
+        filename_color = "DiffAdd"
+      else
+        filename_color = "MyWinBarActiv"
+      end
+      val = val.." "..apply_hi(filename_color,filename)
       if (winwidth - #filename) > 15 and not DU.is_empty(filetype) then
         -- local extension = vim.fn.expand("%:e")
         -- val = val..apply_hi("MyWinBarLight",get_icon(filename,extension))
@@ -176,7 +183,9 @@ require('lualine').setup {
   extensions = {'fugitive'},
   sections = {
     lualine_a = {'branch'},
-    lualine_b = { function() return "["..vim.fn.getcwd().."]" end },
+    lualine_b = { function()
+      return "["..string.gsub(vim.fn.getcwd(),os.getenv("HOME"),"~/",1).."]"
+    end },
     lualine_c = {
       {
         'buffers',
