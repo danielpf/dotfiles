@@ -1,7 +1,7 @@
 local M = {}
 
 function M.getVisualSelection ()
-	vim.cmd('noau normal! "vy"')
+  vim.cmd('noau normal! "vy"')
 	local text = vim.fn.getreg('v')
 	vim.fn.setreg('v', {})
 
@@ -89,21 +89,24 @@ end
 local Maybe = {}
 
 function Maybe:of(val)
-  self = Maybe
-  local obj = {}
-  if val then
-    obj.val = val
-  end
+  local obj = {val=val}
+  setmetatable(obj, self)
+  self.__index = self
   return obj
 end
-function Maybe:if_present(func)
+function Maybe:if_present(yesfunc,elsefunc)
   if self.val then
-    return func(self.val)
+    return yesfunc(self.val)
+  else
+    return elsefunc()
   end
-  return self
 end
 function Maybe:is_empty()
   return self.val == nil
+end
+
+function M.require(modname)
+  return Maybe:of(require(modname))
 end
 
 return M

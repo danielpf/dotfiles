@@ -14,7 +14,7 @@ sudo apt-get install -y ripgrep zoxide
 zoxide init zsh > $HOME/.zoxide.sh
 find -maxdepth 2 -not -path '*/.*' -type d | xargs -n 1 zoxide add
 
-if [[ $NVIM_INSTALL_OPTION = "compile" ]]; then
+if [ $NVIM_INSTALL_OPTION = "compile" ]; then
   bash $HOME/scripts/compile_nvim.sh
 else
   wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz -O /tmp/nvim.tar.gz
@@ -22,4 +22,5 @@ else
 fi
 
 . $HOME/.common.sh
+tmux
 

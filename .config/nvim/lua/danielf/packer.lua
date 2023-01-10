@@ -31,14 +31,24 @@ require('packer').startup(function(use)
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+  use 'famiu/bufdelete.nvim'
 
-  use('tpope/vim-fugitive');
-  use('tpope/vim-commentary');
-  use('lewis6991/gitsigns.nvim');
-  use('airblade/vim-rooter');
-  use('mbbill/undotree');
-  use("windwp/nvim-autopairs")
-  use("phaazon/hop.nvim")
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-commentary'
+  use 'lewis6991/gitsigns.nvim'
+  use 'airblade/vim-rooter'
+  use 'mbbill/undotree'
+  use "windwp/nvim-autopairs"
+  use "phaazon/hop.nvim"
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  })
 
   use('akinsho/toggleterm.nvim')
 
@@ -71,7 +81,7 @@ require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     }
   }
-  use("jose-elias-alvarez/null-ls.nvim")
+  use "jose-elias-alvarez/null-ls.nvim"
 
   -- visuals
   use('Mofiqul/dracula.nvim')

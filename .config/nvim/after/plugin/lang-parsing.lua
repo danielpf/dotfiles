@@ -110,6 +110,10 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
+lsp.configure('emmet_ls', {
+  filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'handlebars' },
+})
+
 -- Pass arguments to a language server
 lsp.configure('tsserver', {
   on_attach = function(client, bufnr)
