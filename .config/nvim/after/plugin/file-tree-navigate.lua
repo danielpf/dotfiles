@@ -115,8 +115,8 @@ require("nvim-tree").setup({
     }
 
     k.nnoremap(k.c_e, k.c_e, opts)
-    k.nnoremap("H", "23k", opts)
-    k.nnoremap("L", "23j", opts)
+    k.nnoremap("H", "24k", opts)
+    k.nnoremap("L", "24j", opts)
 
     k.nnoremap('z', function()
       local node = api.tree.get_node_under_cursor()

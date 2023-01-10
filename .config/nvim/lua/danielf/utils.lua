@@ -59,7 +59,11 @@ function M.cfg_git_command(git_cmd)
 end
 
 function M.cfg_files()
-  return M.get_os_command_output(M.cfg_git_command("ls-files"))
+  local lst = DU.List.new(M.get_os_command_output(M.cfg_git_command("ls-files")))
+  local r = lst:iter():partition(function(s)
+    return string.match(s, '.*packer_compiled.*') == nil
+  end)
+  return r
 end
 
 M.NONEDITOR_FILETYPES = {
@@ -82,8 +86,13 @@ M.NONEDITOR_FILETYPES = {
   "qf",
 }
 
-function M.is_editor(filetype)
-  return not vim.tbl_contains(M.NONEDITOR_FILETYPES, filetype)
+function M.is_editor(bufnr)
+  local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+  if vim.tbl_contains(M.NONEDITOR_FILETYPES, filetype) then
+    return false
+  end
+  local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+  return buftype ~= "nofile"
 end
 
 local Maybe = {}
@@ -98,15 +107,19 @@ function Maybe:if_present(yesfunc,elsefunc)
   if self.val then
     return yesfunc(self.val)
   else
-    return elsefunc()
+    if elsefunc then
+      return elsefunc()
+    end
   end
 end
 function Maybe:is_empty()
   return self.val == nil
 end
 
-function M.require(modname)
+function M.requireOpt(modname)
   return Maybe:of(require(modname))
 end
+
+M.List = require("plenary.collections.py_list")
 
 return M

@@ -41,3 +41,5 @@ end
 -- globals
 DU = require("danielf.utils")
 DK = require("danielf.keymap")
+
+require('danielf.buffer_ring')

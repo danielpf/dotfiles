@@ -89,9 +89,9 @@ vim.api.nvim_create_autocmd({
     callback = function(ev)
       local bufnr = ev.buf
 
-      local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-      if not DU.is_editor(filetype) then
-        vim.opt_local.winbar = nil
+      if not DU.is_editor(bufnr) then
+        -- vim.opt_local.winbar = nil
+        -- bug: this is setting the value for the wrong buf/win
         return
       end
 
@@ -111,6 +111,7 @@ vim.api.nvim_create_autocmd({
         filename_color = "MyWinBarActiv"
       end
       val = val.." "..apply_hi(filename_color,filename)
+      local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
       if (winwidth - #filename) > 15 and not DU.is_empty(filetype) then
         -- local extension = vim.fn.expand("%:e")
         -- val = val..apply_hi("MyWinBarLight",get_icon(filename,extension))

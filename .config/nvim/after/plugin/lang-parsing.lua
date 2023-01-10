@@ -54,6 +54,16 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 ----- lsp -----
+DU.requireOpt("mason"):if_present(function(mason)
+  mason.setup({
+    providers = {
+      "mason.providers.client",
+      "mason.providers.registry-api" -- This is the default provider. You can still include it here if you want, as a fallback to the client provider.
+    },
+    -- log_level = vim.log.levels.DEBUG
+  })
+end)
+
 require("mason.settings").set({
   ui = {
     border = 'rounded'
@@ -83,6 +93,7 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'sumneko_lua',
+  'emmet_ls',
   'rust_analyzer'
 });
 
@@ -206,11 +217,46 @@ require("nvim-autopairs").setup {
 --local map_c_h = false  -- Map the <C-h> key to delete a pair
 --local map_c_w = false -- map <c-w> to delete a pair if possible
 
-k.nnoremap("p", "p==")
-k.nnoremap("P", "P==")
-k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
-k.nnoremap(k.c_l, "==");
-k.vnoremap(k.c_l, "=");
+----- indent-blankline -----
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = true,
+}
+vim.cmd("hi IndentBlanklineContextStart guibg=#354566 gui=none")
+vim.cmd("hi IndentBlanklineContextChar guifg=#354566")
+-- vim.cmd("hi IndentBlanklineContextChar guifg=#ffb86c")
+-- for highlighting symbol: 865B13
+
+----- treesj ---------------
+local tsj = require('treesj')
+
+local langs = {--[[ configuration for languages ]]}
+
+tsj.setup({
+  -- Use default keymaps
+  -- (<space>m - toggle, <space>j - join, <space>s - split)
+  use_default_keymaps = true,
+
+  -- Node with syntax error will not be formatted
+  check_syntax_error = true,
+
+  -- If line after join will be longer than max value,
+  -- node will not be formatted
+  max_join_length = 120,
+
+  -- hold|start|end:
+  -- hold - cursor follows the node/place on which it was called
+  -- start - cursor jumps to the first symbol of the node being formatted
+  -- end - cursor jumps to the last symbol of the node being formatted
+  cursor_behavior = 'hold',
+
+  -- Notify about possible problems or not
+  notify = true,
+  langs = langs,
+})
+
+----- mappings -----
 
 k.nnoremap("<F3>", vim.diagnostic.goto_next)
 k.nnoremap("<F4>", vim.diagnostic.goto_prev)

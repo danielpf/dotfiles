@@ -10,7 +10,7 @@ mkdir -f $HOME/.zsh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting --depth 1 &
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions --depth 1 &
 
-sudo apt-get install -y ripgrep zoxide
+sudo apt-get install -y inetutils-ping ripgrep zoxide htop
 zoxide init zsh > $HOME/.zoxide.sh
 find -maxdepth 2 -not -path '*/.*' -type d | xargs -n 1 zoxide add
 

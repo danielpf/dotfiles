@@ -13,7 +13,7 @@ DK.nnoremap('F', function()
 end,
 {remap=true})
 
-DK.nnoremap('t', 'HopPatternMW',
+DK.nnoremap('t', 'HopPatternMW<CR>',
 {remap=true})
 
 -- vim.keymap.set('', 't', function()
@@ -22,3 +22,4 @@ DK.nnoremap('t', 'HopPatternMW',
 -- vim.keymap.set('', 'T', function()
 --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 -- end, {remap=true})
+
