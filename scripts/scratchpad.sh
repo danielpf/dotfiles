@@ -8,4 +8,5 @@ if [[ $FOO = "bar" ]]; then
 fi
 
 
-
+. $HOME/.common.sh
+tmux

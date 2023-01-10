@@ -76,7 +76,8 @@ end
 --vim.cmd("hi Winbar      guibg=#3e4452")
 vim.cmd("hi MyWinBarDark  guibg=#6272a4 guifg=#000000")
 vim.cmd("hi MyWinBarLight guibg=#6373a5 guifg=#bdcbfc")
-vim.cmd("hi MyWinBarActiv guibg=#506097 guifg=#ffffff gui=bold")
+-- vim.cmd("hi MyWinBarActiv guibg=#506097 guifg=#ffffff gui=bold")
+vim.cmd("hi MyWinBarActiv guibg=#6373a5 guifg=#ffffff gui=underline")
 vim.cmd("hi Winbar guibg=#6373a5 guifg=#efefef")
 local winbar_group = vim.api.nvim_create_augroup('winbar_group', {clear = true})
 vim.api.nvim_create_autocmd({
@@ -159,17 +160,23 @@ local function tmux_status()
   return s[1]
 end
 
-local function registers()
-  local maxlen = 15
-  local contents = { }
-  for i = 1, 3, 1 do
-    local s = vim.fn.eval("@"..i)
-    s = string.gsub(s, " +", "")
-    s = string.gsub(s, "%s+", "∅")
+local function status_registers()
+  local getreg = function(r) return vim.fn.eval("@"..r) end
+  local minify = function(txt)
+    local maxlen = 17
+    local s = txt
+    s = string.gsub(txt, " +", " ")
+    -- s = string.gsub(s, "%s+", "∅")
     s = string.sub(s, 1, maxlen)
-    table.insert(contents, s)
+    return s
   end
+  local contents = { }
+  table.insert(contents, minify(getreg("\"")))
+  table.insert(contents, minify(getreg("1")))
   return table.concat(contents, "|")
+end
+
+local function swap_registers()
 end
 
 -- See `:help lualine.txt`
@@ -184,7 +191,9 @@ require('lualine').setup {
   sections = {
     lualine_a = {'branch'},
     lualine_b = { function()
-      return "["..string.gsub(vim.fn.getcwd(),os.getenv("HOME"),"~/",1).."]"
+      local cwd = vim.fn.getcwd()
+      local home = os.getenv("HOME").."/"
+      return "["..string.gsub(cwd,home,"~/",1).."]"
     end },
     lualine_c = {
       {
@@ -201,7 +210,7 @@ require('lualine').setup {
       }
     },
     lualine_x = {'diff'},
-    lualine_y = { registers },
+    lualine_y = { status_registers },
     lualine_z = { tmux_status }
   },
 }

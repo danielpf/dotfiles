@@ -1,3 +1,12 @@
+------ buffers
+-- check if buffer is in harpoo/ntree bookmarks
+-- check if is modified
+-- order by last write
+-- order by number of modifications
+-- order by last view
+-- remove last
+
+
 ------ netrw
 
 --vim.g['netrw_banner'] = 0;
@@ -131,41 +140,4 @@ vim.cmd("hi NvimTreeGitDirty guifg=#8be9fd")
 vim.cmd("hi NvimTreeGitUnstaged guifg=#ff6e6e")
 vim.cmd("hi clear NvimTreeOpenedFile")
 vim.cmd("hi NvimTreeOpenedFile gui=underline")
-
-local my_nvim_close_grp = vim.api.nvim_create_augroup('my_nvim_close_grp', { clear = true })
-vim.api.nvim_create_autocmd('WinClosed', {
-  group = my_nvim_close_grp,
-  callback = function (ev)
-    local this_buf_ft = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
-    if not DU.is_editor(this_buf_ft) then
-      return
-    end
-
-    -- check if we will be left with no editor windows
-    local winhandles = vim.api.nvim_tabpage_list_wins(0)
-    local editor_windows = {}
-    local noneditor_windows = {}
-    for _,wh in pairs(winhandles) do
-      local bufhandle = vim.api.nvim_win_get_buf(wh)
-      local ft = vim.api.nvim_buf_get_option(bufhandle, 'filetype')
-      if DU.is_editor(ft) then
-        table.insert(editor_windows, { ft = ft })
-      end
-    end
-
-    -- get a buffer to load
-    local bufhandles = {}
-    local somebuf
-    for _,bh in pairs(vim.api.nvim_list_bufs()) do
-      somebuf = bh
-      local ft = vim.api.nvim_buf_get_option(bh, 'filetype')
-      local modified =  vim.api.nvim_buf_get_option(bh, 'modified')
-      if DU.is_editor(ft) and modified then
-        vim.schedule(function()
-          -- TODO
-        end)
-      end
-    end
-  end
-})
 

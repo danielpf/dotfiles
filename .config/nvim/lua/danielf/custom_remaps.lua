@@ -9,7 +9,9 @@ k.nnoremap("<s-q>", function()
       vim.cmd("q")
     end
   else
-    vim.cmd("bd")
+    DU.require('bufdelete'):if_present(
+    function(m) vim.cmd("Bdelete") end,
+    function() vim.cmd("bd") end)
   end
 end);
 k.nnoremap("<s-w>",k.command("w"));
@@ -56,5 +58,7 @@ k.cnoremap("<M-f>", "<C-Right>");
 
 k.nnoremap(k.c_p, ":"..k.up)
 
+k.nnoremap(k.lead.."qn", ":qn<CR>");
+k.nnoremap(k.lead.."qp", ":qN<CR>");
 
 

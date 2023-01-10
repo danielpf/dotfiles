@@ -1,4 +1,5 @@
-echo 11
+#!/bin/sh
+
 # cursor color
 echo -ne "\e]12;#909090\a"
 
@@ -78,8 +79,6 @@ alias g="/usr/bin/gh"
 
 alias yarn="yarn --emoji true"
 
-echo 22
-
 downloaded_vim=$HOME/nvim-linux64/bin/nvim
 compiled_vim=/usr/local/bin/nvim
 if [ -f $compiled_vim ]; then
@@ -113,4 +112,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && \
   source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-echo 33
