@@ -1,3 +1,4 @@
+local M = {}
 
 local project = {}
 local function load_project()
@@ -50,6 +51,8 @@ local function rm_entry(bufnr)
   end
 end
 
+-- autocmd
+
 local group = vim.api.nvim_create_augroup('buffer_ring', { clear = true })
 
 vim.api.nvim_create_autocmd('BufAdd', { group = group,
@@ -85,8 +88,6 @@ vim.api.nvim_create_autocmd('VimLeave', { group = group,
   end
 })
 
-
-local M = {}
 function M.list_buffers()
   return container
 end

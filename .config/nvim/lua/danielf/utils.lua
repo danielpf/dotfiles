@@ -14,11 +14,14 @@ function M.getVisualSelection ()
 end
 
 function M.is_empty(x)
-  return #x == 0
+  return (not x) or #x == 0
 end
 
-function M.at_home()
-  return vim.fn.getcwd() == os.getenv("HOME")
+function M.at_home(dir)
+  if M.is_empty(dir) then
+    dir = vim.fn.getcwd()
+  end
+  return string.match(dir, os.getenv("HOME")..'/?$')
 end
 
 function M.get_os_command_output(cmd, cwd)
@@ -84,6 +87,7 @@ M.NONEDITOR_FILETYPES = {
   "harpoon",
   "lspinfo",
   "qf",
+  "fugitive",
 }
 
 function M.is_editor(bufnr)

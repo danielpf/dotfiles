@@ -13,7 +13,7 @@ DK.nnoremap('F', function()
 end,
 {remap=true})
 
-DK.nnoremap('t', 'HopPatternMW<CR>',
+DK.nnoremap('t', ':HopPatternMW<CR>',
 {remap=true})
 
 -- vim.keymap.set('', 't', function()

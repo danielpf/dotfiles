@@ -57,6 +57,14 @@ require('gitsigns').setup {
 }
 
 -- fugitive
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function(ev)
+    if DU.at_home(DP.root_dir) then
+      vim.api.nvim_buf_set_var(ev.buf, 'git_dir', DP.root_dir)
+    end
+  end
+})
+
 k.nnoremap("<leader>gs", function() vim.cmd("Git") end);
 k.nnoremap("<leader>gb", function() vim.cmd("Git blame") end);
 k.nnoremap("<leader>gd", function() vim.cmd("Gdiffsplit!") end);

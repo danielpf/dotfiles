@@ -17,6 +17,7 @@ fi
 export GPG_TTY=$(tty) # gpg needs this
 
 function cfg() {
+  # GIT_DIR ? GIT_WORK_TREE ? in nvim?
   GIT_CONFIG_GLOBAL=$HOME/.gitcfgconfig /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
 function cfg_push() {

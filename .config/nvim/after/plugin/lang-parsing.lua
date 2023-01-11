@@ -54,6 +54,8 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 ----- lsp -----
+require('lspconfig.ui.windows').default_options.border = 'single'
+
 DU.requireOpt("mason"):if_present(function(mason)
   mason.setup({
     providers = {
@@ -63,7 +65,6 @@ DU.requireOpt("mason"):if_present(function(mason)
     -- log_level = vim.log.levels.DEBUG
   })
 end)
-
 require("mason.settings").set({
   ui = {
     border = 'rounded'

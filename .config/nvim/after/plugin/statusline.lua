@@ -193,8 +193,8 @@ require('lualine').setup {
     lualine_a = {'branch'},
     lualine_b = { function()
       local cwd = vim.fn.getcwd()
-      local home = os.getenv("HOME").."/"
-      return "["..string.gsub(cwd,home,"~/",1).."]"
+      local home = os.getenv("HOME")
+      return "["..string.gsub(cwd,home.."/?","~/",1).."]"
     end },
     lualine_c = {
       {

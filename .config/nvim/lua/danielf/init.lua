@@ -1,7 +1,3 @@
-require('danielf.packer')
-require('danielf.custom_remaps')
-require('danielf.custom_vim_opts')
-
 -- todo:
 -- decent jumplist on statusline
 -- decent buffer list on statusline
@@ -20,26 +16,24 @@ require('danielf.custom_vim_opts')
 -- add those with .git
 -- ignore node_modules
 
+require('danielf.packer')
+require('danielf.custom_remaps')
+require('danielf.custom_vim_opts')
+
 -- open help vertically
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {'help'},
   command = 'wincmd L'
 })
 
-vim.api.nvim_create_autocmd('BufNew', {
-  callback = function (ev)
-
-  end
-})
-
+-- globals
 
 P = function(v)
   print(vim.inspect(v))
   return v
 end
 
--- globals
 DU = require("danielf.utils")
+DP = require("danielf.project")
+DB = require('danielf.buffer_ring')
 DK = require("danielf.keymap")
-
-require('danielf.buffer_ring')
