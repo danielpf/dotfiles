@@ -134,7 +134,10 @@ require("nvim-tree").setup({
 })
 
 k.nnoremap(k.alt_e, k.command("NvimTreeToggle"))
-k.nnoremap(k.c_g, k.command("NvimTreeFindFile"))
+k.nnoremap(k.c_g, function ()
+  -- todo: notify
+  vim.cmd("NvimTreeFindFile")
+end)
 
 vim.cmd("hi NvimTreeGitDirty guifg=#8be9fd")
 vim.cmd("hi NvimTreeGitUnstaged guifg=#ff6e6e")

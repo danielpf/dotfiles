@@ -67,17 +67,8 @@ k.nnoremap(k.down,   ":vert resize -5"..k.enter);
 k.nnoremap(k.s_up,   ":resize +5"..k.enter);
 k.nnoremap(k.s_down, ":resize -5"..k.enter);
 
--- bottom command line navigation
-k.cnoremap("<C-f>", "<Right>");
-k.cnoremap("<C-b>", "<Left>");
-k.cnoremap("<C-a>", "<Home>");
-k.cnoremap("<M-b>", "<C-Left>");
-k.cnoremap("<M-f>", "<C-Right>");
 
-k.nnoremap(k.lead..k.lead, ":");
-k.nnoremap(k.c_p, ":"..k.up)
-
-k.nnoremap(k.lead.."qn", ":qn<CR>");
-k.nnoremap(k.lead.."qp", ":qN<CR>");
+k.nnoremap(k.lead.."qn", ":cn<CR>");
+k.nnoremap(k.lead.."qp", ":cN<CR>");
 
 

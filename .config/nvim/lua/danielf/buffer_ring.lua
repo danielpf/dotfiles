@@ -59,6 +59,7 @@ vim.api.nvim_create_autocmd('BufAdd', { group = group,
     end
     add_entry(ev.buf)
     if #container > MAX_OPEN_BUFFERS then
+      vim.notify("closing "..container[1].bufnr)
       vim.schedule(function()
         vim.cmd("Bwipeout "..container[1].bufnr)
       end)
