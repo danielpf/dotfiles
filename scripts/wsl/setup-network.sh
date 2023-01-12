@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 truncated_left=$(ip -4 addr show dev eth0 | sed -n -E 's/ *inet *//gp')
 my_ip_and_subnet=$(echo $truncated_left | sed -n -E 's/ +.*//gp')

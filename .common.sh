@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # cursor color
-echo -ne "\e]12;#909090\a"
+echo -ne "\e]12;#F37A00\a"
 
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 #
