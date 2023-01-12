@@ -49,6 +49,8 @@ require('packer').startup(function(use)
         })
     end
   })
+  use "lukas-reineke/indent-blankline.nvim"
+  use "Wansmer/treesj" -- join lines
 
   use('akinsho/toggleterm.nvim')
 
@@ -92,6 +94,7 @@ require('packer').startup(function(use)
   });
   use('blueyed/vim-diminactive'); -- man pages with vim
   use('nvim-lualine/lualine.nvim') -- Fancier statusline
+  use("rcarriga/nvim-notify")
 
   use('paretje/vim-man'); -- man pages with vim
 

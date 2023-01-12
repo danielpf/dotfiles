@@ -34,7 +34,7 @@ require('gitsigns').setup {
     ignore_whitespace = false,
   },
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-  sign_priority = 6,
+  sign_priority = 11,
   update_debounce = 100,
   status_formatter = nil, -- Use default
   max_file_length = 40000, -- Disable if file is longer than this (in lines)
@@ -57,6 +57,14 @@ require('gitsigns').setup {
 }
 
 -- fugitive
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function(ev)
+    if DU.at_home(DP.root_dir) then
+      vim.api.nvim_buf_set_var(ev.buf, 'git_dir', DP.root_dir)
+    end
+  end
+})
+
 k.nnoremap("<leader>gs", function() vim.cmd("Git") end);
 k.nnoremap("<leader>gb", function() vim.cmd("Git blame") end);
 k.nnoremap("<leader>gd", function() vim.cmd("Gdiffsplit!") end);

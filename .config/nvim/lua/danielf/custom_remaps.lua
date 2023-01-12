@@ -2,16 +2,31 @@ local k = require("danielf.keymap");
 
 vim.g.mapleader = " ";
 
+local function will_exit()
+  local count = 0
+  for _,bufnr in pairs(vim.api.nvim_list_bufs()) do
+    local isloaded = vim.api.nvim_buf_is_loaded(bufnr)
+    if DU.is_editor(bufnr) and isloaded then
+      count = count + 1
+      if count > 1 then
+        return false
+      end
+    end
+  end
+  local current = vim.api.nvim_get_current_buf()
+  return DU.is_editor(current) and DU.is_empty(vim.api.nvim_buf_get_name(current))
+end
+
 k.inoremap(k.esc, k.c_c); -- to get out of dialogs; doesnt seem to work
 k.nnoremap("<s-q>", function()
-  if DU.is_empty(vim.api.nvim_buf_get_name(0)) then
+  if will_exit() then
     if vim.fn.input("exit? y/n: ") == "y" then
       vim.cmd("q")
     end
   else
-    DU.require('bufdelete'):if_present(
-    function(m) vim.cmd("Bdelete") end,
-    function() vim.cmd("bd") end)
+    DU.requireOpt('bufdelete'):if_present(
+      function(_) vim.cmd("Bdelete") end,
+      function() vim.cmd("bd") end)
   end
 end);
 k.nnoremap("<s-w>",k.command("w"));
@@ -27,21 +42,24 @@ k.vnoremap("L", "");
 k.nnoremap(k.c_a, "_");
 k.nnoremap(k.c_j, "*");
 
-k.nnoremap("J", "mzJ`z"); -- join line
-k.nnoremap("J", "mzJ`z");
-
 k.nnoremap(k.c_d, k.c_d.."zz") -- keep cursor centered while scrolling
 k.nnoremap(k.c_u, k.c_u.."zz")
 
 k.nnoremap("n", "nzzzv"); -- keep cursor centered while searching
 k.nnoremap("N", "Nzzzv");
 
--- pasting
+-- editing
+k.nnoremap("J", "mzJ`z"); -- join line
+
 k.xnoremap(k.lead.."p", "\"_dP");
 k.nnoremap(k.lead.."d", "\"_d");
 k.vnoremap(k.lead.."d", "\"_d");
 
-k.nnoremap(k.lead..k.lead, ":");
+k.nnoremap("p", "p==")
+k.nnoremap("P", "P==")
+k.nnoremap(k.lead .. k.c_l, vim.lsp.buf.format);
+k.nnoremap(k.c_l, "==");
+k.vnoremap(k.c_l, "=");
 
 -- window
 k.nnoremap(k.up,     ":vert resize +5"..k.enter);
@@ -49,16 +67,8 @@ k.nnoremap(k.down,   ":vert resize -5"..k.enter);
 k.nnoremap(k.s_up,   ":resize +5"..k.enter);
 k.nnoremap(k.s_down, ":resize -5"..k.enter);
 
--- bottom command line navigation
-k.cnoremap("<C-f>", "<Right>");
-k.cnoremap("<C-b>", "<Left>");
-k.cnoremap("<C-a>", "<Home>");
-k.cnoremap("<M-b>", "<C-Left>");
-k.cnoremap("<M-f>", "<C-Right>");
 
-k.nnoremap(k.c_p, ":"..k.up)
-
-k.nnoremap(k.lead.."qn", ":qn<CR>");
-k.nnoremap(k.lead.."qp", ":qN<CR>");
+k.nnoremap(k.lead.."qn", ":cn<CR>");
+k.nnoremap(k.lead.."qp", ":cN<CR>");
 
 

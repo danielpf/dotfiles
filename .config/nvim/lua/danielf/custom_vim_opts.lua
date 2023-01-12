@@ -14,6 +14,7 @@ vim.opt.wrap = false;
 vim.opt.colorcolumn = "120";
 
 vim.opt.incsearch = true;
+vim.opt.smartcase = true;
 vim.opt.scrolloff = 4;
 vim.opt.splitbelow = true;
 
@@ -28,3 +29,4 @@ vim.opt.list = true;
 
 vim.opt.laststatus = 3
 vim.opt.cursorline = true  -- make current line highlighted
+

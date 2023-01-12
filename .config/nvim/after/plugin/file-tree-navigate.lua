@@ -115,8 +115,8 @@ require("nvim-tree").setup({
     }
 
     k.nnoremap(k.c_e, k.c_e, opts)
-    k.nnoremap("H", "23k", opts)
-    k.nnoremap("L", "23j", opts)
+    k.nnoremap("H", "24k", opts)
+    k.nnoremap("L", "24j", opts)
 
     k.nnoremap('z', function()
       local node = api.tree.get_node_under_cursor()
@@ -134,7 +134,10 @@ require("nvim-tree").setup({
 })
 
 k.nnoremap(k.alt_e, k.command("NvimTreeToggle"))
-k.nnoremap(k.c_g, k.command("NvimTreeFindFile"))
+k.nnoremap(k.c_g, function ()
+  -- todo: notify
+  vim.cmd("NvimTreeFindFile")
+end)
 
 vim.cmd("hi NvimTreeGitDirty guifg=#8be9fd")
 vim.cmd("hi NvimTreeGitUnstaged guifg=#ff6e6e")

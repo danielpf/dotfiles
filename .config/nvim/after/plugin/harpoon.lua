@@ -3,33 +3,6 @@ local k = require("danielf.keymap");
 local harpoon_ui = require("harpoon.ui");
 local harpoon_mark = require("harpoon.mark");
 
-local file_ring = {}
-local function add_entry(filename)
-  if file_ring[filename] ~= nil then
-    return
-  end
-  file_ring[filename] = { points = 0 }
-end
-
-local function add_points(filename, points)
-  local entry = file_ring[filename]
-  if entry == nil then
-    return
-  end
-  entry.points = entry.points + points
-end
-
-local function process_file_ring()
-end
-
--- TODO
-local harpoon_group = vim.api.nvim_create_augroup('harpoon_group', { clear = true })
-local windows = vim.fn.getwininfo();
-vim.api.nvim_create_autocmd('BufWritePost', {
-  group = harpoon_group,
-  callback = function()
-  end
-})
 
 require("telescope").load_extension('harpoon')
 
