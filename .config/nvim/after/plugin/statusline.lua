@@ -80,6 +80,13 @@ vim.cmd("hi MyWinBarLight guibg=#6373a5 guifg=#bdcbfc")
 vim.cmd("hi MyWinBarActiv guibg=#6373a5 guifg=#ffffff gui=underline")
 vim.cmd("hi Winbar guibg=#6373a5 guifg=#efefef")
 local winbar_group = vim.api.nvim_create_augroup('winbar_group', {clear = true})
+vim.api.nvim_create_autocmd({ 'WinEnter' }, {
+  callback = function(ev)
+    P(ev)
+    P(vim.fn.win_id2tabwin(ev.id))
+    P(vim.api.nvim_get_current_win())
+  end
+})
 vim.api.nvim_create_autocmd({
   'WinEnter', 'BufEnter', 'BufWritePost', 'WinScrolled', 'WinResized',
   'TextChanged', 'TextChangedI' },
@@ -88,15 +95,23 @@ vim.api.nvim_create_autocmd({
     once = false,
     callback = function(ev)
       local bufnr = ev.buf
+      local winhandle = vim.api.nvim_get_current_win()
+      local winnr = vim.api.nvim_win_get_number(winhandle)
+      local winid = vim.fn.win_getid(winnr)
+      P(winhandle)
+      P(winid)
+      P(winnr)
+      P(ev)
 
       if not DU.is_editor(bufnr) then
-        -- vim.opt_local.winbar = nil
-        -- bug: this is setting the value for the wrong buf/win
+        -- vim.api.nvim_buf_set_option(bufnr, 'winbar', "")
+        pcall(vim.api.nvim_set_option_value, "winbar", nil, {
+          scope = "local",
+          win = winhandle
+        })
         return
       end
 
-      local winhandle = vim.api.nvim_get_current_win()
-      local winnr = vim.api.nvim_win_get_number(winhandle)
       local winwidth = vim.api.nvim_win_get_width(winhandle)
       local winheight = vim.api.nvim_win_get_height(winhandle)
 
@@ -144,7 +159,10 @@ vim.api.nvim_create_autocmd({
       end
       val = val.." "
 
-      pcall(vim.api.nvim_set_option_value, "winbar", val, { scope = "local" })
+      pcall(vim.api.nvim_set_option_value, "winbar", val, {
+        scope = "local",
+        win = winid
+      })
     end
 })
 

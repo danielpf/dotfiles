@@ -2,7 +2,6 @@ local k = require("danielf.keymap")
 
 ----- treesitter -----
 require 'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
   ensure_installed = {
     "markdown",
     "glimmer",
@@ -13,16 +12,8 @@ require 'nvim-treesitter.configs'.setup {
     "lua",
     "rust"
   },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  -- List of parsers to ignore installing (for "all")
-  --ignore_install = { "javascript" },
+  sync_install = false, -- only applied to `ensure_installed`
+  auto_install = true, -- install missing parsers when entering buffer
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -52,6 +43,10 @@ require 'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+----- tags -----
+
+k.nnoremap('gd', DK.command("tjump"))
 
 ----- lsp -----
 require('lspconfig.ui.windows').default_options.border = 'single'
@@ -98,27 +93,27 @@ lsp.ensure_installed({
   'rust_analyzer'
 });
 
-
 lsp.on_attach(function(client,bufnr)
   local function tell_you (f)
+    -- TODO
     f()
     vim.notify()
   end
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   k.nnoremap(DK.alt_n, vim.diagnostic.goto_next)
   k.nnoremap(DK.alt_p, vim.diagnostic.goto_prev)
-  k.nnoremap('gD', vim.lsp.buf.declaration, bufopts)
   k.nnoremap('gd', vim.lsp.buf.definition, bufopts)
+  k.nnoremap('gD', vim.lsp.buf.declaration, bufopts)
   k.nnoremap('gi', vim.lsp.buf.implementation, bufopts)
   k.nnoremap('gr', vim.lsp.buf.references, bufopts)
   k.nnoremap('gT', vim.lsp.buf.type_definition, bufopts)
   k.nnoremap('ga', function() vim.lsp.buf.code_action() end)
-
   k.nnoremap('K', vim.lsp.buf.hover, bufopts)
   k.nnoremap(DK.c_k, vim.lsp.buf.signature_help, bufopts)
 
@@ -128,9 +123,8 @@ lsp.on_attach(function(client,bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
 
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  vim.keymap.set('n', '<space>lr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>la', vim.lsp.buf.code_action, bufopts)
 end)
 
 lsp.configure('emmet_ls', {
@@ -207,6 +201,19 @@ vim.diagnostic.config({
   },
 })
 
+----- telescope -----
+
+k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
+
+local builtin = require('telescope.builtin');
+k.nnoremap(k.lead..'lr', builtin.lsp_references);
+k.nnoremap(k.lead..'li', builtin.lsp_implementations);
+k.nnoremap(k.lead..'ld', builtin.lsp_definitions);
+k.nnoremap(k.lead..'lt', builtin.lsp_type_definitions);
+k.nnoremap(k.lead..'lc', builtin.lsp_incoming_calls);
+k.nnoremap(k.lead..'lo', builtin.lsp_outgoing_calls);
+k.nnoremap(k.lead..'ll', builtin.lsp_document_symbols);
+
 ----- autopairs -----
 require("nvim-autopairs").setup {
   disable_filetype = { "TelescopePrompt", "vim" },
@@ -268,17 +275,5 @@ tsj.setup({
   langs = langs,
 })
 
------ mappings -----
-
-k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
-
-local builtin = require('telescope.builtin');
-k.nnoremap(k.lead..'lr', builtin.lsp_references);
-k.nnoremap(k.lead..'li', builtin.lsp_implementations);
-k.nnoremap(k.lead..'ld', builtin.lsp_definitions);
-k.nnoremap(k.lead..'lt', builtin.lsp_type_definitions);
-k.nnoremap(k.lead..'lc', builtin.lsp_incoming_calls);
-k.nnoremap(k.lead..'lo', builtin.lsp_outgoing_calls);
-k.nnoremap(k.lead..'ll', builtin.lsp_document_symbols);
 
 

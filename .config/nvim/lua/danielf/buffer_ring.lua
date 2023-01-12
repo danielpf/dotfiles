@@ -63,17 +63,18 @@ vim.api.nvim_create_autocmd('BufAdd', { group = group,
     add_entry(ev.buf)
     if #container > MAX_OPEN_BUFFERS then
       vim.notify("closing "..container[1].bufnr)
-      vim.schedule(function()
+      vim.defer_fn(function()
         vim.cmd("Bwipeout "..container[1].bufnr)
-      end)
+      end, 1000)
     end
   end
 })
 vim.api.nvim_create_autocmd('BufUnload', { group = group,
   callback = function(ev)
-    if DU.is_editor(ev.buf) then
-      rm_entry(ev.buf)
+    if not DU.is_editor(ev.buf) then
+      return
     end
+    rm_entry(ev.buf)
   end
 })
 
