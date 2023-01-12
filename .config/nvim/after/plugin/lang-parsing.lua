@@ -98,29 +98,40 @@ lsp.ensure_installed({
   'rust_analyzer'
 });
 
-local on_attach = function(client, bufnr)
+
+lsp.on_attach(function(client,bufnr)
+  local function tell_you (f)
+    f()
+    vim.notify()
+  end
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
+  k.nnoremap(DK.alt_n, vim.diagnostic.goto_next)
+  k.nnoremap(DK.alt_p, vim.diagnostic.goto_prev)
+  k.nnoremap('gD', vim.lsp.buf.declaration, bufopts)
+  k.nnoremap('gd', vim.lsp.buf.definition, bufopts)
+  k.nnoremap('gi', vim.lsp.buf.implementation, bufopts)
+  k.nnoremap('gr', vim.lsp.buf.references, bufopts)
+  k.nnoremap('gT', vim.lsp.buf.type_definition, bufopts)
+  k.nnoremap('ga', function() vim.lsp.buf.code_action() end)
+
+  k.nnoremap('K', vim.lsp.buf.hover, bufopts)
+  k.nnoremap(DK.c_k, vim.lsp.buf.signature_help, bufopts)
+
+  k.nnoremap(DK.lead..'wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  k.nnoremap(DK.lead..'wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  k.nnoremap(DK.lead..'wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
+end)
 
 lsp.configure('emmet_ls', {
   filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'handlebars' },
@@ -225,14 +236,14 @@ require("indent_blankline").setup {
     show_current_context_start = true,
 }
 vim.cmd("hi IndentBlanklineContextStart guibg=#354566 gui=none")
-vim.cmd("hi IndentBlanklineContextChar guifg=#354566")
+vim.cmd("hi IndentBlanklineContextChar guifg=#9be0fd")
 -- vim.cmd("hi IndentBlanklineContextChar guifg=#ffb86c")
 -- for highlighting symbol: 865B13
 
 ----- treesj ---------------
 local tsj = require('treesj')
 
-local langs = {--[[ configuration for languages ]]}
+local langs = { }
 
 tsj.setup({
   -- Use default keymaps
@@ -259,12 +270,9 @@ tsj.setup({
 
 ----- mappings -----
 
-k.nnoremap("<F3>", vim.diagnostic.goto_next)
-k.nnoremap("<F4>", vim.diagnostic.goto_prev)
 k.nnoremap(k.lead.."le", function() vim.cmd("Telescope diagnostics") end)
 
 local builtin = require('telescope.builtin');
-k.nnoremap(k.lead..'la', function() vim.lsp.buf.code_action() end)
 k.nnoremap(k.lead..'lr', builtin.lsp_references);
 k.nnoremap(k.lead..'li', builtin.lsp_implementations);
 k.nnoremap(k.lead..'ld', builtin.lsp_definitions);
