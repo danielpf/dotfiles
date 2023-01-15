@@ -4,7 +4,6 @@
 	bare = true
 [remote "origin"]
 	url = https://github.com/danielpf/dotfiles.git
-[remote "origin"]
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "master"]
 	remote = origin

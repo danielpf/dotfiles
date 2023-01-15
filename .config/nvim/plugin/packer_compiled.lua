@@ -144,11 +144,6 @@ _G.packer_plugins = {
     path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
-  harpoon = {
-    loaded = true,
-    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/harpoon",
-    url = "https://github.com/theprimeagen/harpoon"
-  },
   ["hop.nvim"] = {
     loaded = true,
     path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/hop.nvim",
@@ -156,7 +151,7 @@ _G.packer_plugins = {
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
-    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lsp-zero.nvim"] = {
@@ -206,7 +201,7 @@ _G.packer_plugins = {
   },
   ["nvim-notify"] = {
     loaded = true,
-    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/nvim-notify",
     url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-surround"] = {
@@ -273,7 +268,7 @@ _G.packer_plugins = {
   },
   treesj = {
     loaded = true,
-    path = "/home/jdoe/.local/share/nvim/site/pack/packer/start/treesj",
+    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/treesj",
     url = "https://github.com/Wansmer/treesj"
   },
   undotree = {

@@ -144,3 +144,6 @@ vim.cmd("hi NvimTreeGitUnstaged guifg=#ff6e6e")
 vim.cmd("hi clear NvimTreeOpenedFile")
 vim.cmd("hi NvimTreeOpenedFile gui=underline")
 
+local daniel_jumps = require("danielf.jumps")
+k.nnoremap(k.alt_h, daniel_jumps.proj_back);
+k.nnoremap(k.alt_l, daniel_jumps.proj_forward);

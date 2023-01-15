@@ -53,7 +53,7 @@ DK.nnoremap(DK.alt_f, function()
   end
 end);
 DK.nnoremap(DK.lead..'fg', builtin.git_files);
-DK.nnoremap(DK.lead..'fh', function () vim.cmd("Telescope harpoon marks") end);
+-- DK.nnoremap(DK.lead..'fh', function () vim.cmd("Telescope harpoon marks") end);
 
 -- vim
 DK.nnoremap(DK.lead..'vh', builtin.help_tags);

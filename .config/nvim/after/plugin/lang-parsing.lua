@@ -46,12 +46,12 @@ require 'nvim-treesitter.configs'.setup {
 
 ----- tags -----
 
-k.nnoremap('gd', DK.command("tjump"))
+k.nnoremap('gd', DK.command("tag"))
 
 ----- lsp -----
 require('lspconfig.ui.windows').default_options.border = 'single'
 
-DU.requireOpt("mason"):if_present(function(mason)
+DC.requireOpt("mason"):if_present(function(mason)
   mason.setup({
     providers = {
       "mason.providers.client",
@@ -177,7 +177,7 @@ cmp.setup({
   { name = 'vsnip' },
   { name = 'nvim_lsp_signature_help' },
   { name = 'buffer-lines', keyword_length = 4 },
-  { name = 'rg', keyword_length = 3  },
+  -- { name = 'rg', keyword_length = 3  },
   { name = 'npm', keyword_length = 4 },
   {
     { name = 'path' }
@@ -242,9 +242,10 @@ require("indent_blankline").setup {
     show_current_context = true,
     show_current_context_start = true,
 }
-vim.cmd("hi IndentBlanklineContextStart guibg=#354566 gui=none")
-vim.cmd("hi IndentBlanklineContextChar guifg=#9be0fd")
--- vim.cmd("hi IndentBlanklineContextChar guifg=#ffb86c")
+vim.cmd("hi IndentBlanklineContextStart gui=none")
+-- vim.cmd("hi IndentBlanklineContextStart guibg=#21232e gui=none")
+-- vim.cmd("hi IndentBlanklineContextChar guifg=#21232e")
+vim.cmd("hi IndentBlanklineContextChar guifg=#6272a4")
 -- for highlighting symbol: 865B13
 
 ----- treesj ---------------
@@ -255,7 +256,7 @@ local langs = { }
 tsj.setup({
   -- Use default keymaps
   -- (<space>m - toggle, <space>j - join, <space>s - split)
-  use_default_keymaps = true,
+  use_default_keymaps = false,
 
   -- Node with syntax error will not be formatted
   check_syntax_error = true,
@@ -274,6 +275,7 @@ tsj.setup({
   notify = true,
   langs = langs,
 })
+k.nnoremap(k.lead..'j', DK.command("TSJToggle"));
 
 
 

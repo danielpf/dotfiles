@@ -7,7 +7,7 @@ vim.opt.expandtab = true; -- spaces inserted by vim (eg, autoident)
 vim.opt.smartindent = true;
 
 vim.opt.number = true;
-vim.opt.relativenumber = true;
+-- vim.opt.relativenumber = true;
 
 vim.opt.joinspaces = false;
 vim.opt.wrap = false;

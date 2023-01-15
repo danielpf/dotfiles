@@ -2,15 +2,15 @@ local M = {}
 
 function M.getVisualSelection ()
   vim.cmd('noau normal! "vy"')
-	local text = vim.fn.getreg('v')
-	vim.fn.setreg('v', {})
+  local text = vim.fn.getreg('v')
+  vim.fn.setreg('v', {})
 
-	text = string.gsub(text, "\n", "")
-	if #text > 0 then
-		return text
-	else
-		return ''
-	end
+  text = string.gsub(text, "\n", "")
+  if #text > 0 then
+    return text
+  else
+    return ''
+  end
 end
 
 function M.is_empty(x)
@@ -22,6 +22,32 @@ function M.at_home(dir)
     dir = vim.fn.getcwd()
   end
   return string.match(dir, os.getenv("HOME")..'/?$')
+end
+
+M.Path = require("plenary.path")
+M.Path.is_subdir = function(self, parent)
+  if string.sub(parent, -1) ~= '/' then
+    parent = parent .. '/'
+  end
+  return 1 == string.find(self.filename, parent, 1, true)
+end
+
+function M.make_string_of_size(s, n)
+  if s == nil or #s == n then
+    return s
+  elseif #s < n then
+    return string.rep(" ", #s-n)..s
+  else
+    return "‥"..string.sub(s, #s - n + 1, #s)
+  end
+end
+
+function M.basename(filename)
+  local path = M.Path.new("/"..filename)
+  local parent = path:parent()
+  local basename = path:make_relative(tostring(parent))
+  local r = tostring(basename)
+  return r
 end
 
 function M.get_os_command_output(cmd, cwd)
@@ -62,7 +88,7 @@ function M.cfg_git_command(git_cmd)
 end
 
 function M.cfg_files()
-  local lst = DU.List.new(M.get_os_command_output(M.cfg_git_command("ls-files")))
+  local lst = DC.List.new(M.get_os_command_output(M.cfg_git_command("ls-files")))
   local r = lst:iter():partition(function(s)
     return string.match(s, '.*packer_compiled.*') == nil
   end)
@@ -98,32 +124,5 @@ function M.is_editor(bufnr)
   local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
   return buftype ~= "nofile"
 end
-
-local Maybe = {}
-
-function Maybe:of(val)
-  local obj = {val=val}
-  setmetatable(obj, self)
-  self.__index = self
-  return obj
-end
-function Maybe:if_present(yesfunc,elsefunc)
-  if self.val then
-    return yesfunc(self.val)
-  else
-    if elsefunc then
-      return elsefunc()
-    end
-  end
-end
-function Maybe:is_empty()
-  return self.val == nil
-end
-
-function M.requireOpt(modname)
-  return Maybe:of(require(modname))
-end
-
-M.List = require("plenary.collections.py_list")
 
 return M

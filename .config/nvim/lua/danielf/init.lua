@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'wincmd L'
 })
 
+
 -- globals
 
 P = function(v)
@@ -34,6 +35,7 @@ P = function(v)
 end
 
 DU = require("danielf.utils")
+DC = require("danielf.collections")
 DP = require("danielf.project")
 DB = require('danielf.buffer_ring')
 DK = require("danielf.keymap")

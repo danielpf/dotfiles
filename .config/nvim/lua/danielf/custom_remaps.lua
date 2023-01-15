@@ -17,14 +17,14 @@ local function will_exit()
   return DU.is_editor(current) and DU.is_empty(vim.api.nvim_buf_get_name(current))
 end
 
-k.inoremap(k.esc, k.c_c); -- to get out of dialogs; doesnt seem to work
+-- k.inoremap(k.esc, k.c_c); -- to get out of dialogs; doesnt seem to work
 k.nnoremap("<s-q>", function()
   if will_exit() then
     if vim.fn.input("exit? y/n: ") == "y" then
       vim.cmd("q")
     end
   else
-    DU.requireOpt('bufdelete'):if_present(
+    DC.requireOpt('bufdelete'):if_present(
       function(_) vim.cmd("Bdelete") end,
       function() vim.cmd("bd") end)
   end

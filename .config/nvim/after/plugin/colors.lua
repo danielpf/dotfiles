@@ -58,3 +58,5 @@ vim.cmd("hi CursorLineNr  guifg=#ffb86c")
 vim.cmd("hi VertSplit  guibg=#6272a4")
 
 vim.cmd("hi NotifyBackground  guibg=#6272a4")
+vim.cmd("hi Visual guibg=#5c68b6 guifg=#ffffff")
+
