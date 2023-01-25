@@ -56,33 +56,28 @@ require('packer').startup(function(use)
 
   use('nvim-treesitter/nvim-treesitter', { run = ":TSUpdate" });
   use('nvim-treesitter/playground');
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    requires = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
 
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      -- Autocompletion sources
-      {'hrsh7th/cmp-buffer'},  -- get from current buffer
-      {"amarakon/nvim-cmp-buffer-lines"},  -- get from current buffer
-      {'hrsh7th/cmp-path'},  -- file paths
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
-      {'hrsh7th/cmp-nvim-lsp-signature-help'},  -- nvim function signatures
-      {'hrsh7th/vim-vsnip'},
-      {"lukas-reineke/cmp-rg"},
-      {"David-Kunz/cmp-npm"},
-
-      -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
-    }
-  }
+  -- LSP Support
+  use 'neovim/nvim-lspconfig'
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
+  -- Autocompletion
+  use 'hrsh7th/nvim-cmp'
+  -- Autocompletion sources
+  use 'hrsh7th/cmp-buffer'  -- get from current buffer
+  use "amarakon/nvim-cmp-buffer-lines"  -- get from current buffer
+  use 'hrsh7th/cmp-path'  -- file paths
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'  -- nvim function signatures
+  use "ray-x/lsp_signature.nvim"
+  use 'hrsh7th/vim-vsnip'
+  use "David-Kunz/cmp-npm"
+  -- use "lukas-reineke/cmp-rg"
+  -- Snippets
+  use 'L3MON4D3/LuaSnip'
+  use 'rafamadriz/friendly-snippets'
   use "jose-elias-alvarez/null-ls.nvim"
 
   -- visuals

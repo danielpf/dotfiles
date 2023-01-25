@@ -21,7 +21,7 @@ local function open_terminal()
 end
 
 require("toggleterm").setup {
-  start_in_insert = false,
+  start_in_insert = true,
   direction = "float"
 }
 k.nnoremap(k.alt_enter, function() vim.cmd("ToggleTerm") end)

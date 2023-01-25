@@ -114,11 +114,6 @@ _G.packer_plugins = {
     path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
-  ["cmp-rg"] = {
-    loaded = true,
-    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/cmp-rg",
-    url = "https://github.com/lukas-reineke/cmp-rg"
-  },
   cmp_luasnip = {
     loaded = true,
     path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
@@ -154,10 +149,10 @@ _G.packer_plugins = {
     path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
-  ["lsp-zero.nvim"] = {
+  ["lsp_signature.nvim"] = {
     loaded = true,
-    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
-    url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+    path = "/home/danielfazeres/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
+    url = "https://github.com/ray-x/lsp_signature.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,

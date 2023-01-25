@@ -34,6 +34,7 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
+zstyle ':completion:*' special-dirs true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
@@ -70,18 +71,17 @@ export LESS_TERMCAP_us=$(printf '\e[04;31m') # enter underline mode – red
 
 # -----
 
-if [ -f $HOME/.zsh/zoxide.sh ]; then
-  . $HOME/.zsh/zoxide.sh
-  find -maxdepth 2 -type d -not -path '*/.*' | xargs -n 1 zoxide add
-  zoxide add $HOME/.config/nvim
-fi
-
 if [ -f $HOME/.common.sh ]; then
   . $HOME/.common.sh
 fi
 
+if [ -f $HOME/.zsh/zoxide.sh ]; then
+  . $HOME/.zsh/zoxide.sh
+fi
+
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh/zsh-tmux-auto-title.zsh
 
 source ~/.zsh/zsh-history-filter.zsh
 export HISTORY_FILTER_EXCLUDE=("_KEY" "Bearer" "fg")

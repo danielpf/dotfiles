@@ -18,10 +18,12 @@ local function will_exit()
 end
 
 -- k.inoremap(k.esc, k.c_c); -- to get out of dialogs; doesnt seem to work
+-- todo: map esc to c-c for terminal?
+k.nnoremap("<c-q>", k.command(":close<cr>"))
 k.nnoremap("<s-q>", function()
   if will_exit() then
     if vim.fn.input("exit? y/n: ") == "y" then
-      vim.cmd("q")
+      vim.cmd("qa")
     end
   else
     DC.requireOpt('bufdelete'):if_present(

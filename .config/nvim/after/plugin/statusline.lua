@@ -4,9 +4,19 @@ local function tmux_status()
     "display-message",
     "-p",
     -- "#S:#{active_window_index}"
-    "#{active_window_index}"
-  })
-  return s[1] or "no tmux"
+    "#{active_window_index} #{session_windows}"
+  })[1]
+  if DU.is_empty(s) then return "no tmux" end
+  local w_id = tonumber(string.match(s, "%d+"))
+  local delim_pos = string.find(s, " +", 2)
+  local w_num = tonumber(string.match(s, "%d+", delim_pos))
+  local windows = {}
+  for i=0,w_num-1 do
+    local e_str = i
+    if i==w_id then e_str = "["..i.."]" end
+    table.insert(windows, e_str)
+  end
+  return table.concat(windows," ")
 end
 
 local function status_registers()
@@ -28,6 +38,13 @@ end
 local function swap_registers()
 end
 
+local function gitline()
+  local repo = vim.fn.FugitiveGitDir()
+  if repo ~= nil and repo ~= "" then
+    return "git"
+  end
+end
+
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
@@ -36,13 +53,11 @@ require('lualine').setup {
     component_separators = '|',
     section_separators = '',
   },
-  extensions = {'fugitive'},
+  extensions = { 'fugitive' },
   sections = {
-    lualine_a = {'branch'},
+    lualine_a = { gitline },
     lualine_b = { function()
-      local cwd = vim.fn.getcwd()
-      local home = os.getenv("HOME")
-      return "["..string.gsub(cwd,home.."/?","~/",1).."]"
+      return "["..DP.with_tilda(vim.fn.getcwd()).."]"
     end },
     lualine_c = { {
       require("danielf.buffer_ring").statusline,

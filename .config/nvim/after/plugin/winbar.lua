@@ -9,7 +9,7 @@ end
    if DU.is_empty(filename) then
      return "[No Name]"
    end
-   filename = require("plenary.path"):new(filename):make_relative(vim.fn.getcwd())
+   filename = DP.Path.new(filename):make_relative(vim.fn.getcwd())
    local maxsize = math.ceil(0.75 * math.min(winwidth, 120))
    local excess_size = #filename - maxsize
    -- TODO
@@ -80,8 +80,8 @@ vim.cmd("hi MyWinBarActiv guibg=#6373a5 guifg=#ffffff gui=underline")
 vim.cmd("hi Winbar guibg=#6373a5 guifg=#efefef")
 local winbar_group = vim.api.nvim_create_augroup('winbar_group', {clear = true})
 vim.api.nvim_create_autocmd({
-  'WinEnter', 'BufEnter', 'BufWritePost', 'WinScrolled', 'WinResized',
-  'TextChanged', 'TextChangedI' },
+  'WinEnter', 'Filetype', 'BufWritePost', 'WinScrolled', 'WinResized', 'BufModifiedSet'
+   },
   {
     group = winbar_group,
     once = false,
@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd({
       local winnr = vim.api.nvim_win_get_number(winhandle)
       local winid = vim.fn.win_getid(winnr)
 
-      if not DU.is_editor(bufnr) or "" == vim.api.nvim_buf_get_option(bufnr, 'filetype') then
+      if not DU.is_editor(bufnr) then
         -- vim.api.nvim_buf_set_option(bufnr, 'winbar', "")
         -- pcall(vim.api.nvim_set_option_value, "winbar", nil, {
         --   scope = "local",
@@ -104,6 +104,9 @@ vim.api.nvim_create_autocmd({
       local winheight = vim.api.nvim_win_get_height(winhandle)
 
       local filename, modified = get_filename(bufnr, winwidth)
+      if filename == "" then
+        return
+      end
 
       local val = ""
       val = val..apply_hi("MyWinBarLight",winnr)

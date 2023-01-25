@@ -21,6 +21,12 @@ else
   tar xzf /tmp/nvim.tar.gz
 fi
 
+if [ -f $HOME/.zsh/zoxide.sh ]; then
+  . $HOME/.zsh/zoxide.sh
+  find -maxdepth 3 -type d -not -path '*/.*' | xargs -n 1 zoxide add
+  zoxide add $HOME/.config/nvim
+fi
+
 . $HOME/.common.sh
 tmux
 

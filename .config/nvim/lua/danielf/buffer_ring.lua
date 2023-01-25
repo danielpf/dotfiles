@@ -1,4 +1,3 @@
-local Path = require("plenary.path")
 local group = vim.api.nvim_create_augroup('buffer_ring', { clear = true })
 local M = {}
 
@@ -11,22 +10,20 @@ local function should_ignore(bufnr, path)
   return false
 end
 
-local function normalize(filename)
-  local path = Path.new(filename)
+local function proj_rel_path(filename)
+  local path = DP.Path.new(filename)
   return tostring(path:normalize()), path
 end
 
 local function accept(bufnr, func)
-  local filename, path = normalize(vim.api.nvim_buf_get_name(bufnr))
+  local filename, path = proj_rel_path(vim.api.nvim_buf_get_name(bufnr))
   if not should_ignore(bufnr, path) then
     func(bufnr, filename)
   end
 end
 
 local function hit_entry_store(entries, key, points)
-  if points == nil then
-    points = 0
-  end
+  if points == nil then points = 0 end
   local entry = entries[key]
   if entry ~= nil then
     entry.points = entry.points + points
@@ -41,11 +38,11 @@ end
 
 local persistent_file_entries = {}
 
-vim.api.nvim_create_autocmd('VimEnter', { group = group,
-  callback = function()
-    -- load_project()
-  end
-})
+-- vim.api.nvim_create_autocmd('VimEnter', { group = group,
+--   callback = function()
+--     -- load_project()
+--   end
+-- })
 -- vim.api.nvim_create_autocmd('VimLeave', { group = group,
 --   callback = function()
 --     -- save_project()
@@ -95,17 +92,20 @@ vim.api.nvim_create_autocmd('BufUnload', { group = group,
     end)
   end
 })
+
 -- todo: every 2 min
--- vim.defer_fn(function()
+local function schedule_unload()
+  -- vim.defer_fn(function()
   --   vim.cmd("Bwipeout "..bufnr)
   -- end, 1000) -- todo: less time
   -- if not vim.api.nvim_buf_get_option(bufnr, 'modified') then
-  --     end
+  -- end
   -- if #previous_files > MAX_OPEN_BUFFERS then
-    --   vim.defer_fn(function()
-    --     vim.cmd("Bwipeout "..previous_files[1].bufnr)
-    --   end, 1000) -- todo: less time
-    -- end
+  --   vim.defer_fn(function()
+  --     vim.cmd("Bwipeout "..previous_files[1].bufnr)
+  --   end, 1000) -- todo: less time
+  -- end
+end
 
 local last_changed_file = nil
 vim.api.nvim_create_autocmd({'TextChanged'}, {
@@ -120,11 +120,12 @@ vim.api.nvim_create_autocmd({'TextChanged'}, {
 ------------
 
 local function get_suggestions(exclude_set)
-  local set = {}
+  local suggestion_set = {}
 
   for k,v in pairs(buffer_entries) do
-    if not vim.tbl_contains(exclude_set, v.filename) then
-      table.insert(set, {
+    local is_excluded = vim.tbl_contains(exclude_set, v.filename)
+    if not is_excluded then
+      table.insert(suggestion_set, {
         filename = v.filename,
         points = v.points,
         modified = vim.api.nvim_buf_get_option(k, 'modified'),
@@ -137,23 +138,36 @@ local function get_suggestions(exclude_set)
   -- end,
   -- file_ring)
 
-  return set
+  return suggestion_set
 end
 
 function M.statusline()
+  local exclude_suggested = { }
   local line = ""
-  local exclude_suggested = { vim.api.nvim_buf_get_name(0) }
+
+  local current_filename
+  local curr_file_path = DP.root_dir_path
+  accept(0, function (bufnr, filename)
+    table.insert(exclude_suggested, filename)
+    curr_file_path = DP.Path.new(current_filename):parent()
+  end)
 
   local marks = {}
   -- local marks = vim.tbl_map(function(e)
-  --   return normalize(e.filename)
+  --   return proj_rel_path(e.filename)
   -- end, require("harpoon").get_mark_config().marks)
 
-  local for_display = function (filename)
-    table.insert(exclude_suggested, filename)
-    filename = string.gsub(filename, "component", "cmp‥")
-    filename = string.gsub(filename, "index", "ix‥")
-    return DU.make_string_of_size(filename, 17)
+  local for_display = function(filename)
+    local normalized_filename, path = proj_rel_path(filename)
+    table.insert(exclude_suggested, normalized_filename)
+    filename = DP.relativize_to(path, curr_file_path)
+    filename = tostring(filename)
+    if DU.is_empty(filename) then
+      return ""
+    else
+      filename = DP.compact_name(filename)
+      return DU.make_string_of_size(filename, 20)
+    end
   end
 
   if last_changed_file ~= nil then
@@ -167,18 +181,15 @@ function M.statusline()
     local rlnum = e.rlnum or {}
     local s = ""
     if e.current then
-      if #lnum > 1 then
-        s = s.."x"..#(lnum)..":"
+      for i=1,#lnum,1 do
+        s = s.."■"
       end
       s = s.."."
-      if #rlnum > 1 then
-        s = s..":x"..#(rlnum)
+      for i=1,#rlnum,1 do
+        s = s.."□"
       end
     else
       s = s..for_display(e.filename)
-      if #lnum > 1 then
-        s = s..":x"..#(lnum)
-      end
     end
     table.insert(jumps, s)
   end

@@ -114,11 +114,11 @@ require("nvim-tree").setup({
       nowait = true
     }
 
-    k.nnoremap(k.c_e, k.c_e, opts)
-    k.nnoremap("H", "24k", opts)
-    k.nnoremap("L", "24j", opts)
+    k.buf_nnoremap(k.c_e, k.c_e, opts)
+    k.buf_nnoremap("H", "24k", opts)
+    k.buf_nnoremap("L", "24j", opts)
 
-    k.nnoremap('z', function()
+    k.buf_nnoremap('z', function()
       local node = api.tree.get_node_under_cursor()
       if node.type == "directory" then
         api.node.open.edit()
@@ -127,23 +127,22 @@ require("nvim-tree").setup({
       end
     end, opts)
 
-    k.nnoremap('Z', function()
+    k.buf_nnoremap('Z', function()
       api.node.navigate.parent_close()
     end, opts)
   end
 })
 
+
 k.nnoremap(k.alt_e, k.command("NvimTreeToggle"))
 k.nnoremap(k.c_g, function ()
-  -- todo: notify
-  vim.cmd("NvimTreeFindFile")
+  if vim.api.nvim_buf_get_option(0, 'filetype') == 'NvimTree' then
+    vim.cmd("NvimTreeClose")
+  else
+    vim.cmd("NvimTreeFindFile")
+  end
 end)
 
-vim.cmd("hi NvimTreeGitDirty guifg=#8be9fd")
-vim.cmd("hi NvimTreeGitUnstaged guifg=#ff6e6e")
-vim.cmd("hi clear NvimTreeOpenedFile")
-vim.cmd("hi NvimTreeOpenedFile gui=underline")
-
 local daniel_jumps = require("danielf.jumps")
-k.nnoremap(k.alt_h, daniel_jumps.proj_back);
-k.nnoremap(k.alt_l, daniel_jumps.proj_forward);
+k.nnoremap(k.c_o, daniel_jumps.proj_back);
+k.nnoremap(k.c_i, daniel_jumps.proj_forward);

@@ -71,4 +71,5 @@ k.nnoremap("<leader>gd", function() vim.cmd("Gdiffsplit!") end);
 
 local log_opts = "--graph --abbrev-commit"
 --log_opts = log_opts .. " --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
-k.nnoremap("<leader>gl", function() vim.cmd("Git log "..log_opts.." %") end);
+k.nnoremap("<leader>gl", function() vim.cmd("Git log "..log_opts) end);
+k.nnoremap("<leader>glf", function() vim.cmd("Git log "..log_opts.." %") end);

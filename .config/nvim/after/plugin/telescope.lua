@@ -13,7 +13,7 @@ local builtin = require('telescope.builtin');
 DK.nnoremap(DK.lead..'t', builtin.builtin);
 DK.nnoremap(DK.lead..'ta', builtin.builtin);
 DK.nnoremap(DK.lead.."tr", builtin.resume);
-DK.nnoremap(DK.tab.."tp", builtin.pickers);
+DK.nnoremap(DK.lead.."tp", builtin.pickers);
 
 -- text search
 DK.nnoremap(DK.lead..'sg', function()

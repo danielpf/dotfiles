@@ -24,6 +24,9 @@ endfunction
 augroup trimwhitespacegroup
   autocmd!
   auto BufWritePre * :call TrimWhiteSpace()
+augroup END
+
+set iskeyword-=_
 
   " do other on-save actions here if you want
 

@@ -4,7 +4,7 @@ require('rose-pine').setup({
   bold_vert_split = false,
   dim_nc_background = false,
   disable_background = false,
-  disable_float_background = false,
+  disable_float_background = true,
   disable_italics = false,
 
   --- @usage string hex value or named color from rosepinetheme.com/palette
@@ -57,6 +57,21 @@ vim.cmd("hi ColorColumn  guibg=#373A4B")
 vim.cmd("hi CursorLineNr  guifg=#ffb86c")
 vim.cmd("hi VertSplit  guibg=#6272a4")
 
-vim.cmd("hi NotifyBackground  guibg=#6272a4")
-vim.cmd("hi Visual guibg=#5c68b6 guifg=#ffffff")
+vim.cmd([[
+hi NotifyBackground  guibg=#6272a4
+hi Visual guibg=#5c68b6 guifg=#ffffff
+
+hi! @decorator guifg=#f1fa8c
+hi! MatchParen guibg=#5c68b6 guifg=#ffffff"
+
+hi! link LspReferenceRead Visual
+hi! link LspReferenceText Visual
+hi! link LspReferenceWrite Visual
+
+hi NvimTreeGitDirty guifg=#8be9fd
+hi NvimTreeGitUnstaged guifg=#ff6e6e
+hi clear NvimTreeOpenedFile
+hi NvimTreeOpenedFile gui=underline
+]])
+
 

@@ -6,6 +6,7 @@ function Maybe:of(val)
   self.__index = self
   return obj
 end
+
 function Maybe:if_present(yesfunc,elsefunc)
   if self.val then
     return yesfunc(self.val)
@@ -15,12 +16,21 @@ function Maybe:if_present(yesfunc,elsefunc)
     end
   end
 end
+
 function Maybe:is_empty()
   return self.val == nil
 end
 
+function Maybe:empty()
+  return Maybe:of(nil)
+end
+
 local function requireOpt(modname)
-  return Maybe:of(require(modname))
+  local result = pcall(function() require(modname) end)
+  if result then
+    return Maybe:of(result)
+  end
+  return Maybe:empty()
 end
 
 return {

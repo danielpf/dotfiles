@@ -24,14 +24,6 @@ function M.at_home(dir)
   return string.match(dir, os.getenv("HOME")..'/?$')
 end
 
-M.Path = require("plenary.path")
-M.Path.is_subdir = function(self, parent)
-  if string.sub(parent, -1) ~= '/' then
-    parent = parent .. '/'
-  end
-  return 1 == string.find(self.filename, parent, 1, true)
-end
-
 function M.make_string_of_size(s, n)
   if s == nil or #s == n then
     return s
@@ -40,14 +32,6 @@ function M.make_string_of_size(s, n)
   else
     return "‥"..string.sub(s, #s - n + 1, #s)
   end
-end
-
-function M.basename(filename)
-  local path = M.Path.new("/"..filename)
-  local parent = path:parent()
-  local basename = path:make_relative(tostring(parent))
-  local r = tostring(basename)
-  return r
 end
 
 function M.get_os_command_output(cmd, cwd)

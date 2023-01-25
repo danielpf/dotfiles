@@ -9,7 +9,7 @@ k.nnoremap(k.lead.."u", function()
   vim.cmd('UndotreeFocus')
 end)
 
-local undoTreeGroup = vim.api.nvim_create_augroup('undoTreeGroup', {clear = true})
+-- local undoTreeGroup = vim.api.nvim_create_augroup('undoTreeGroup', {clear = true})
 --local windows = vim.fn.getwininfo();
 --vim.api.nvim_create_autocmd('BufWritePost', {
 --    command = 'UndotreeShow', group = undoTreeGroup
